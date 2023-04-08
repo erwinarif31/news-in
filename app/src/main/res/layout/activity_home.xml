@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="312dp"
                 android:src="@drawable/sample"
+                android:foreground="@drawable/text_overlay"
                 app:shapeAppearanceOverlay="@style/SmoothBottomImage"
                 android:scaleType="centerCrop"/>
 
@@ -53,16 +54,16 @@
                 android:layout_marginBottom="24dp"
                 android:layout_marginStart="24dp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/top_headline_learn_more_arrow"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_toEndOf="@id/top_headline_learn_more"-->
-<!--                android:layout_alignBottom="@id/top_headline_image"-->
-<!--                android:layout_alignBaseline="@id/top_headline_learn_more"-->
-<!--                android:text="→"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="36sp"/>-->
+            <TextView
+                android:id="@+id/top_headline_learn_more_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/top_headline_learn_more"
+                android:layout_alignBottom="@id/top_headline_image"
+                android:layout_alignBaseline="@id/top_headline_learn_more"
+                android:text="→"
+                android:textColor="@color/white"
+                android:textSize="36sp"/>
 
         </RelativeLayout>
 
