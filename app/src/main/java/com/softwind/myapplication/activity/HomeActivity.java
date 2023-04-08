@@ -18,8 +18,8 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ApiClient.getLatestNews(articles -> setHeadline(articles[1]));
-        ApiClient.getNewsWithCategory("science", articles -> System.out.println(articles[0].getImage_url()));
+//        ApiClient.getLatestNews(articles -> setHeadline(articles[1]));
+        ApiClient.getNewsWithCategory("science", articles -> setHeadline(articles[0]));
     }
 
     private void setHeadline(Article article) {
