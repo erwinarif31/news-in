@@ -10,4 +10,10 @@ public interface ApiInterface {
             @Query("country") String country,
             @Query("apiKey") String apiKey
     );
+    @GET("news")
+    Call<NewsResponse> getNewsWithCategory(
+            @Query("country") String country,
+            @Query("apiKey") String apiKey,
+            @Query("category") String category
+    );
 }

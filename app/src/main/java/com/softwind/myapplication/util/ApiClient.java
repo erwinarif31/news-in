@@ -26,6 +26,17 @@ public class ApiClient {
         ApiInterface apiService = getService();
         Call<NewsResponse> call = apiService.getLatestNews("us", API_KEY);
 
+        fetchArticles(callback, call);
+
+    }
+
+    public static void getNewsWithCategory(String category, NewsCallback callback) {
+        ApiInterface apiService = getService();
+        Call<NewsResponse> call = apiService.getNewsWithCategory("us", API_KEY, category);
+
+        fetchArticles(callback, call);
+    }
+    private static void fetchArticles(NewsCallback callback, Call<NewsResponse> call) {
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
@@ -41,7 +52,6 @@ public class ApiClient {
             public void onFailure(Call<NewsResponse> call, Throwable t) {
             }
         });
-
     }
 
     public interface NewsCallback {
