@@ -12,6 +12,11 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="SmoothImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
     <style name="SmoothBottomImage">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomLeft">36dp</item>

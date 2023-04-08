@@ -13,7 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="36dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/top_headline_card"
@@ -76,15 +77,77 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <!-- Breaking News -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_breaking_news"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    style="@style/TextTitle"/>
+
+                <TextView
+                    android:id="@+id/more_breaking_news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="More"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="16dp"
+                android:id="@+id/rv_breaking_news"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/top_headline_card"
-                app:layout_constraintStart_toStartOf="parent"
+                tools:listitem="@layout/item_breaking_news"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"/>
+
+            <!-- ForYou News -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_for_you_news"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    style="@style/TextTitle"/>
+
+                <TextView
+                    android:id="@+id/more_for_you"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="More"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginStart="16dp"
-                android:layout_marginVertical="16dp"
-                android:text="@string/title_breaking_news"
-                style="@style/TextTitle"/>
+                android:id="@+id/rv_for_you"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_breaking_news"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"/>
 
         </LinearLayout>
 
