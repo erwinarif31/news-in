@@ -4,69 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.HomeActivity">
+    tools:context=".activity.MainActivity">
 
-    <com.google.android.material.card.MaterialCardView
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navbar">
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/SmoothBottomImage"
-        android:foreground="@drawable/ripple_container"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardPreventCornerOverlap="false">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/top_headline_image"
-                android:layout_width="match_parent"
-                android:layout_height="312dp"
-                android:src="@drawable/sample"
-                android:foreground="@drawable/text_overlay"
-                app:shapeAppearanceOverlay="@style/SmoothBottomImage"
-                android:scaleType="centerCrop"/>
-
-            <TextView
-                android:id="@+id/tv_top_headline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/top_headline_learn_more"
-                android:text="Russian-Ukrainian War Continues to Emerges Until you have a new children with Barrack Obama."
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginHorizontal="24dp"/>
-
-            <TextView
-                android:id="@+id/top_headline_learn_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/top_headline_image"
-                android:text="Learn More"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="24dp" />
-
-            <TextView
-                android:id="@+id/top_headline_learn_more_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/top_headline_learn_more"
-                android:layout_alignBottom="@id/top_headline_image"
-                android:layout_alignBaseline="@id/top_headline_learn_more"
-                android:text="→"
-                android:textColor="@color/white"
-                android:textSize="36sp"/>
-
-        </RelativeLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

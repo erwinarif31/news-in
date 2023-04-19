@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/bot_navbar_home"
+        android:icon="@drawable/round_home_24"
+        android:id="@+id/navbar_home" />
+    <item
+        android:title="@string/bot_navbar_discover"
+        android:icon="@drawable/round_search_24"
+        android:id="@+id/navbar_discover"/>
+    <item
+        android:title="@string/bot_navbar_profile"
+        android:icon="@drawable/round_person_24"
+        android:id="@+id/navbar_profile"/>
+</menu>
