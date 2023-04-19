@@ -10,26 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.databinding.FragmentHomeBinding;
 import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.util.ApiClient;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding home;
 
     public HomeFragment() {/* Constructor */}
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ApiClient.getNewsWithCategory("science", articles -> setHeadline(articles[1]));
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         home = FragmentHomeBinding.bind(view);
+        MainActivity activity = (MainActivity) getActivity();
+        List<Article> articles = activity.getListArticles();
+        setHeadline(articles.get(0));
     }
 
     @Override
@@ -45,7 +47,7 @@ public class HomeFragment extends Fragment {
 
         home.tvTopHeadline.setText(article.getTitle());
 
-        if (!article.getImage_url().isEmpty() || article != null) {
+        if (article.getImage_url() != null) {
             Glide.with(this).load(article.getImage_url()).into(home.topHeadlineImage);
 
         } else {
