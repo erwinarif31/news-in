@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
 
         home.tvTopHeadline.setText(article.getTitle());
 
-        if (!article.getImage_url().isEmpty()) {
+        if (!article.getImage_url().isEmpty() || article != null) {
             Glide.with(this).load(article.getImage_url()).into(home.topHeadlineImage);
 
         } else {

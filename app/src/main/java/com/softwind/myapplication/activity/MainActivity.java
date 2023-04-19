@@ -12,7 +12,7 @@ import com.softwind.myapplication.fragment.DiscoverFragment;
 import com.softwind.myapplication.fragment.HomeFragment;
 import com.softwind.myapplication.fragment.ProfileFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
     private Fragment fragment = new HomeFragment();
     @Override
