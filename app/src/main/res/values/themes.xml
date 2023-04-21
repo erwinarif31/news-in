@@ -17,6 +17,11 @@
         <item name="cornerSize">28dp</item>
     </style>
 
+    <style name="DiscoverySmoothImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
     <style name="SmoothBottomImage">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomLeft">36dp</item>

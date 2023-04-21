@@ -7,7 +7,22 @@
     <string name="bot_navbar_home">Home</string>
     <string name="bot_navbar_discover">Discover</string>
     <string name="bot_navbar_profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_for_you_news">For You</string>
+    <string name="title_fragment_discover">Discover</string>
+
+    <!--  Discover Fragment  -->
+    <string name="discover_subtitle">Uncovering the unknown.</string>
+
+    <string name="discover_tab_health">Health</string>
+    <string name="discover_tab_sports">Sports</string>
+    <string name="discover_tab_business">Business</string>
+    <string name="discover_tab_science">Science</string>
+    <string name="discover_tab_technology">Technology</string>
+    <string name="discover_tab_entertainment">Entertainment</string>
+    <string name="discover_reload_description">Reload the News</string>
+
+    <!-- Sample -->
+    <string name="lorem30">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 </resources>
