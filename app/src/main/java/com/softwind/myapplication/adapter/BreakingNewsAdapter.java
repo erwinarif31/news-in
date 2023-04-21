@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.softwind.myapplication.R;
+import com.softwind.myapplication.databinding.ItemBreakingNewsBinding;
 import com.softwind.myapplication.models.Article;
 
 import java.util.List;
@@ -23,13 +25,13 @@ public class BreakingNewsAdapter extends RecyclerView.Adapter<BreakingNewsAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_breaking_news, parent, false);
+        ItemBreakingNewsBinding view = ItemBreakingNewsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BreakingNewsAdapter.ViewHolder holder, int position) {
-
+        holder.onBind(breakingNewsList.get(position));
     }
 
 
@@ -41,8 +43,17 @@ public class BreakingNewsAdapter extends RecyclerView.Adapter<BreakingNewsAdapte
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        private ItemBreakingNewsBinding binding;
+        public ViewHolder(@NonNull ItemBreakingNewsBinding itemView) {
+            super(itemView.getRoot());
+            this.binding = itemView;
+        }
+
+        public void onBind(Article article) {
+            binding.tvBreakingNewsTitle.setText(article.getTitle());
+            if (article.getImage_url() != null) {
+                Glide.with(itemView.getContext()).load(article.getImage_url()).into(binding.breakingNewsImage);
+            }
         }
     }
 }

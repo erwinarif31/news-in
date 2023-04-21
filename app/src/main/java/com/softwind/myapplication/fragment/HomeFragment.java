@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.softwind.myapplication.activity.MainActivity;
+import com.softwind.myapplication.adapter.BreakingNewsAdapter;
 import com.softwind.myapplication.databinding.FragmentHomeBinding;
 import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.util.ApiClient;
@@ -32,6 +34,10 @@ public class HomeFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         List<Article> articles = activity.getListArticles();
         setHeadline(articles.get(0));
+
+        home.rvBreakingNews.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        BreakingNewsAdapter breakingNewsAdapter =  new BreakingNewsAdapter(articles);
+        home.rvBreakingNews.setAdapter(breakingNewsAdapter);
     }
 
     @Override
