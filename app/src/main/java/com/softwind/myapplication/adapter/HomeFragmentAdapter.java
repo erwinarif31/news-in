@@ -1,6 +1,7 @@
 package com.softwind.myapplication.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,9 +16,13 @@ import java.util.List;
 public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder> {
 
     private List<Article> breakingNewsList;
-
+    public ClickListener clickListener;
     public HomeFragmentAdapter(List<Article> breakingNewsList) {
         this.breakingNewsList = breakingNewsList;
+    }
+
+    public void setClickListener (ClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -40,7 +45,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private ItemBreakingNewsBinding binding;
         public ViewHolder(@NonNull ItemBreakingNewsBinding itemView) {
             super(itemView.getRoot());
@@ -53,7 +58,17 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
             if (article.getImage_url() != null) {
                 Glide.with(itemView.getContext()).load(article.getImage_url()).into(binding.breakingNewsImage);
             }
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onArticleClicked(article);
+                }
+            });
         }
+    }
+
+    public interface ClickListener {
+        void onArticleClicked (Article article);
     }
 }
 

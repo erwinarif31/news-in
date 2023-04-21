@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.softwind.myapplication.adapter.HomeFragmentAdapter;
@@ -53,9 +55,7 @@ public class HomeFragment extends Fragment {
             List<Article> articles = breaking.getArticles();
             setHeadline(articles.get(0));
 
-            home.rvBreakingNews.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-            HomeFragmentAdapter breakingNewsAdapter = new HomeFragmentAdapter(articles);
-            home.rvBreakingNews.setAdapter(breakingNewsAdapter);
+            setRecyclerView(view, home.rvBreakingNews, articles);
         }
 
         if (isFetchPreferenceDone() && mCategoryCount.get() >= userPreferences.length) {
@@ -66,11 +66,20 @@ public class HomeFragment extends Fragment {
             }
             Collections.shuffle(forYouArticles);
 
-            home.rvForYou.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-            HomeFragmentAdapter forYouAdapter = new HomeFragmentAdapter(forYouArticles);
-            home.rvForYou.setAdapter(forYouAdapter);
-
+            setRecyclerView(view, home.rvForYou, forYouArticles);
         }
+    }
+
+    private void setRecyclerView(@NonNull View view, RecyclerView rv, List<Article> articles) {
+        rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        HomeFragmentAdapter adapter = new HomeFragmentAdapter(articles);
+        adapter.setClickListener(new HomeFragmentAdapter.ClickListener() {
+            @Override
+            public void onArticleClicked(Article article) {
+                Toast.makeText(getContext(), article.getLink(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        rv.setAdapter(adapter);
     }
 
     private boolean isFetchPreferenceDone() {
