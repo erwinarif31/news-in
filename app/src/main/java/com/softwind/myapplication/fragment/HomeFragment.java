@@ -1,21 +1,23 @@
 package com.softwind.myapplication.fragment;
 
+import static com.softwind.myapplication.activity.MainActivity.mBreakObs;
+
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.Observable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.adapter.BreakingNewsAdapter;
 import com.softwind.myapplication.databinding.FragmentHomeBinding;
 import com.softwind.myapplication.models.Article;
-import com.softwind.myapplication.util.ApiClient;
+
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -31,13 +33,26 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         home = FragmentHomeBinding.bind(view);
-        MainActivity activity = (MainActivity) getActivity();
-        List<Article> articles = activity.getListArticles();
-        setHeadline(articles.get(0));
+        setContent(home.getRoot());
+        mBreakObs.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                setContent(view);
+            }
+        });
+    }
 
-        home.rvBreakingNews.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        BreakingNewsAdapter breakingNewsAdapter =  new BreakingNewsAdapter(articles);
-        home.rvBreakingNews.setAdapter(breakingNewsAdapter);
+    private void setContent(@NonNull View view) {
+        if (mBreakObs.get() == 1) {
+            MainActivity activity = (MainActivity) getActivity();
+            assert activity != null;
+            List<Article> articles = activity.getListArticles();
+            setHeadline(articles.get(0));
+
+            home.rvBreakingNews.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+            BreakingNewsAdapter breakingNewsAdapter = new BreakingNewsAdapter(articles);
+            home.rvBreakingNews.setAdapter(breakingNewsAdapter);
+        }
     }
 
     @Override
