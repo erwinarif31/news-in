@@ -76,15 +76,15 @@ public class HomeFragment extends Fragment {
 //            switch (category) {
 //                case "top":
 //                    break;
-//                case "business":
+//                case "business": -
 //                    break;
-//                case "science":
+//                case "science": -
 //                    break;
-//                case "technology":
+//                case "technology": -
 //                    break;
-//                case "sports":
+//                case "sports": -
 //                    break;
-//                case "health":
+//                case "health": -
 //                    break;
 //                case "entertainment":
 //                    break;
