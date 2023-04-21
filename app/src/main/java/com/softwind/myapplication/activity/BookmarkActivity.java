@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.softwind.myapplication.R;
 
-public class LikedArticlesActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_liked_articles);
+        setContentView(R.layout.activity_bookmark);
     }
 }

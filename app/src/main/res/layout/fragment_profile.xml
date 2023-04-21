@@ -153,7 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toEndOf="@id/icon_liked_articles"
-                            android:text="Liked Articles"
+                            android:text="Bookmarks"
                             style="@style/TextTitle"
                             android:textSize="16sp"
                             android:layout_marginStart="12dp"/>
