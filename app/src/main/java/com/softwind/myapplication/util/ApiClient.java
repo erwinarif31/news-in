@@ -1,10 +1,12 @@
 package com.softwind.myapplication.util;
 
+import androidx.annotation.NonNull;
+
+import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.models.Article;
 
-import java.io.IOException;
-
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,24 +36,23 @@ public class ApiClient {
     }
 
     private static void fetchArticles(NewsCallback callback, Call<NewsResponse> call) {
-        // call api using retrofit syncronously
-        Thread temp = new Thread(() -> {
-            try {
-                Response<NewsResponse> response = call.execute();
+        call.enqueue(new Callback<NewsResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<NewsResponse> call, @NonNull Response<NewsResponse> response) {
                 if (response.isSuccessful()) {
                     NewsResponse newsResponse = response.body();
-                    callback.onSuccess(newsResponse.getArticles());
+                    assert newsResponse != null;
+                    Article[] articles = newsResponse.getArticles();
+                    MainActivity.mBreakObs.set(1);
+                    callback.onSuccess(articles);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<NewsResponse> call, @NonNull Throwable t) {
+
             }
         });
-        temp.start();
-        try {
-            temp.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public interface NewsCallback {
