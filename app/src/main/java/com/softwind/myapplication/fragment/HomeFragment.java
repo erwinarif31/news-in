@@ -1,11 +1,13 @@
 package com.softwind.myapplication.fragment;
 
-import static com.softwind.myapplication.activity.MainActivity.mBreakObs;
+import static com.softwind.myapplication.activity.MainActivity.categoryMap;
+import static com.softwind.myapplication.activity.MainActivity.mCategoryCount;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
@@ -17,6 +19,7 @@ import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.adapter.BreakingNewsAdapter;
 import com.softwind.myapplication.databinding.FragmentHomeBinding;
 import com.softwind.myapplication.models.Article;
+import com.softwind.myapplication.models.Category;
 
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         home = FragmentHomeBinding.bind(view);
         setContent(home.getRoot());
-        mBreakObs.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        mCategoryCount.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 setContent(view);
@@ -43,10 +46,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void setContent(@NonNull View view) {
-        if (mBreakObs.get() == 1) {
-            MainActivity activity = (MainActivity) getActivity();
-            assert activity != null;
-            List<Article> articles = activity.getListArticles();
+        Category breaking = categoryMap.get("breaking");
+        if (breaking.getIsDone().get()) {
+            List<Article> articles = breaking.getArticles();
             setHeadline(articles.get(0));
 
             home.rvBreakingNews.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
