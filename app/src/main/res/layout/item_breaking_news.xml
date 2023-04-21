@@ -6,13 +6,25 @@
     android:layout_marginEnd="8dp"
     android:orientation="vertical">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/breaking_news_image"
-        android:layout_width="224dp"
-        android:layout_height="124dp"
-        android:src="@drawable/sample2"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/SmoothImage"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/breaking_news_image"
+            android:layout_width="224dp"
+            android:layout_height="124dp"
+            android:background="@color/french_grey"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/SmoothImage"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/breaking_news_image_loading"
+            android:layout_width="224dp"
+            android:layout_height="124dp"
+            style="@style/LoadingPlaceholder"/>
+
+    </FrameLayout>
     
     <TextView
         android:id="@+id/tv_breaking_news_title"
