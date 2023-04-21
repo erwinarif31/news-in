@@ -33,4 +33,10 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="LoadingPlaceholder">
+        <item name="lottie_loop">true</item>
+        <item name="lottie_autoPlay">true</item>
+        <item name="lottie_rawRes">@raw/loading_animation</item>
+    </style>
 </resources>

@@ -1,6 +1,9 @@
 package com.softwind.myapplication.activity;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         userPreferences = new String[]{"health", "sports", "science"}; // temporary preferences
 
+//        showSplash();
         replaceFragment(fragment);
         setCategoryMap(categoryMap);
         setNavbarListener();
@@ -104,6 +108,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUserPreferences(String[] userPreferences) {
         this.userPreferences = userPreferences;
+    }
+
+    public void showSplash() {
+        Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        Handler handler  = new Handler();
+        Runnable runnable = dialog::dismiss;
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.splash_screen);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        handler.postDelayed(runnable, 3200);
     }
 
 }
