@@ -43,8 +43,8 @@ public class ApiClient {
                     NewsResponse newsResponse = response.body();
                     assert newsResponse != null;
                     Article[] articles = newsResponse.getArticles();
-                    MainActivity.mBreakObs.set(1);
                     callback.onSuccess(articles);
+                    MainActivity.mBreakObs.set(1);
                 }
             }
 

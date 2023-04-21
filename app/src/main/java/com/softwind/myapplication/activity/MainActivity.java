@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setObservable();
+        mBreakObs = new ObservableInt(0);
+        replaceFragment(fragment);
         ApiClient.getLatestNews(articles -> Collections.addAll(listArticles, articles));
 
         binding.bottomNavbar.setOnItemSelectedListener(item -> {
@@ -51,21 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
             replaceFragment(fragment);
             return true;
-        });
-    }
-
-    /**
-     * This method create observable for api call. After Async api call done, update
-     * the view
-     */
-    private void setObservable() {
-        mBreakObs = new ObservableInt();
-        mBreakObs.set(0);
-        mBreakObs.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                replaceFragment(fragment);
-            }
         });
     }
 
