@@ -1,14 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.DiscoverFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <TextView
+                android:id="@+id/fragment_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_fragment_discover"
+                style="@style/TextTitle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/fragment_title"
+                android:text="@string/discover_subtitle"/>
+
+            <ImageButton
+                android:id="@+id/refresh_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/round_refresh_24"
+                android:contentDescription="@string/discover_reload_description" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/refresh_animation"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_toStartOf="@id/refresh_button"
+                android:layout_centerVertical="true"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"/>
+
+        </RelativeLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="12dp"
+            app:tabTextColor="@color/black"
+            app:tabIndicatorColor="@color/green_celadon"
+            app:tabSelectedTextColor="@color/green_emerald"
+            app:tabMode="scrollable">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_health" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_sports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_sports" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_business" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_science"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_science" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_technology"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_technology" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_entertainment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_entertainment" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_discover_news"/>
+
+    </LinearLayout>
+
+</ScrollView>
