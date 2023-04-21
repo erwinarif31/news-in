@@ -1,5 +1,9 @@
 package com.softwind.myapplication.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Article {
     private String title;
     private String link;
@@ -89,6 +93,34 @@ public class Article {
 
     public String getPubDate() {
         return pubDate;
+    }
+
+    public String getDateDiff() {
+        String dateDiff;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = null;
+        try {
+            date = dateFormat.parse(this.getPubDate());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        long diffInMillis = System.currentTimeMillis() - date.getTime();
+        long diffInSeconds = diffInMillis / 1000;
+        long diffInMinutes = diffInSeconds / 60;
+        long diffInHours = diffInMinutes / 60;
+        long diffInDays = diffInHours / 24;
+
+        if (diffInDays > 0) {
+            dateDiff = diffInDays + " days ago";
+        } else if (diffInHours > 0) {
+            dateDiff = diffInHours + " hours ago";
+        } else if (diffInMinutes > 0) {
+            dateDiff = diffInMinutes + " minutes ago";
+        } else {
+            dateDiff = "just now";
+        }
+
+        return dateDiff;
     }
 
     public void setPubDate(String pubDate) {

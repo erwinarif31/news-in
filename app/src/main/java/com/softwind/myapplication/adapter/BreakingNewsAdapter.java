@@ -1,14 +1,12 @@
 package com.softwind.myapplication.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ItemBreakingNewsBinding;
 import com.softwind.myapplication.models.Article;
 
@@ -51,6 +49,7 @@ public class BreakingNewsAdapter extends RecyclerView.Adapter<BreakingNewsAdapte
 
         public void onBind(Article article) {
             binding.tvBreakingNewsTitle.setText(article.getTitle());
+            binding.tvPubDate.setText(article.getDateDiff());
             if (article.getImage_url() != null) {
                 Glide.with(itemView.getContext()).load(article.getImage_url()).into(binding.breakingNewsImage);
             }
