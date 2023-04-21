@@ -1,9 +1,13 @@
 package com.softwind.myapplication.util;
 
+import static com.softwind.myapplication.activity.MainActivity.mCategoryCount;
+
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableBoolean;
 
 import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.models.Article;
+import com.softwind.myapplication.models.Category;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,19 +27,19 @@ public class ApiClient {
         return retrofit.create(ApiInterface.class);
     }
 
-    public static void getLatestNews(NewsCallback callback) {
+    public static void getLatestNews(Category category, NewsCallback callback) {
         ApiInterface apiService = getService();
         Call<NewsResponse> call = apiService.getLatestNews("us", API_KEY);
-        fetchArticles(callback, call);
+        fetchArticles(callback, call, category);
     }
 
-    public static void getNewsWithCategory(String category, NewsCallback callback) {
+    public static void getNewsWithCategory(String categoryName, Category category, NewsCallback callback) {
         ApiInterface apiService = getService();
-        Call<NewsResponse> call = apiService.getNewsWithCategory("us", API_KEY, category);
-        fetchArticles(callback, call);
+        Call<NewsResponse> call = apiService.getNewsWithCategory("us", API_KEY, categoryName);
+        fetchArticles(callback, call, category);
     }
 
-    private static void fetchArticles(NewsCallback callback, Call<NewsResponse> call) {
+    private static void fetchArticles(NewsCallback callback, Call<NewsResponse> call, Category category) {
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(@NonNull Call<NewsResponse> call, @NonNull Response<NewsResponse> response) {
@@ -44,7 +48,8 @@ public class ApiClient {
                     assert newsResponse != null;
                     Article[] articles = newsResponse.getArticles();
                     callback.onSuccess(articles);
-                    MainActivity.mBreakObs.set(1);
+                    category.getIsDone().set(true);
+                    mCategoryCount.set(mCategoryCount.get() + 1);
                 }
             }
 
