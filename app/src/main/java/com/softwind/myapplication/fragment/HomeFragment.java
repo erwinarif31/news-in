@@ -2,12 +2,12 @@ package com.softwind.myapplication.fragment;
 
 import static com.softwind.myapplication.activity.MainActivity.categoryMap;
 import static com.softwind.myapplication.activity.MainActivity.mCategoryCount;
+import static com.softwind.myapplication.activity.MainActivity.userPreferences;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
@@ -15,17 +15,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
-import com.softwind.myapplication.activity.MainActivity;
-import com.softwind.myapplication.adapter.BreakingNewsAdapter;
+import com.softwind.myapplication.adapter.HomeFragmentAdapter;
 import com.softwind.myapplication.databinding.FragmentHomeBinding;
 import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.Category;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding home;
+    private List<Article> forYouArticles;
 
     public HomeFragment() {/* Constructor */}
     @Override
@@ -52,9 +54,33 @@ public class HomeFragment extends Fragment {
             setHeadline(articles.get(0));
 
             home.rvBreakingNews.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-            BreakingNewsAdapter breakingNewsAdapter = new BreakingNewsAdapter(articles);
+            HomeFragmentAdapter breakingNewsAdapter = new HomeFragmentAdapter(articles);
             home.rvBreakingNews.setAdapter(breakingNewsAdapter);
         }
+
+        if (isFetchPreferenceDone() && mCategoryCount.get() >= userPreferences.length) {
+            forYouArticles = new ArrayList<>();
+            for (String preference : userPreferences) {
+                Category category = categoryMap.get(preference);
+                forYouArticles.addAll(category.getArticles());
+            }
+            Collections.shuffle(forYouArticles);
+
+            home.rvForYou.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+            HomeFragmentAdapter forYouAdapter = new HomeFragmentAdapter(forYouArticles);
+            home.rvForYou.setAdapter(forYouAdapter);
+
+        }
+    }
+
+    private boolean isFetchPreferenceDone() {
+        for (String preferences : userPreferences) {
+            Category category = categoryMap.get(preferences);
+            if (!category.getIsDone().get()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

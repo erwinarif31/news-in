@@ -35,20 +35,22 @@ public class MainActivity extends AppCompatActivity {
     public final static ObservableInt mCategoryCount = new ObservableInt(0);
     public static Map<String, Category> categoryMap = new HashMap<>();
 
-    private String[] userPreferences;
+    public static String[] userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setCategoryMap(categoryMap);
-        fetchBreakingArticles();
-        replaceFragment(fragment);
 
         userPreferences = new String[]{"health", "sports", "science"}; // temporary preferences
-        fetchArticlesPreferences(userPreferences);
+
+        replaceFragment(fragment);
+        setCategoryMap(categoryMap);
         setNavbarListener();
+        fetchBreakingArticles();
+        fetchArticlesPreferences(userPreferences);
+
     }
 
     private void fetchBreakingArticles() {
@@ -90,14 +92,6 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction().replace(R.id.main_content, fragment).commit();
     }
 
-    public List<Article> getBreakingArticles() {
-        return breakingArticles;
-    }
-
-    public static Map<String, Category> getCategoryMap() {
-        return categoryMap;
-    }
-
     public static void setCategoryMap(Map<String, Category> categoryMap) {
         categoryMap.put("breaking", new Category(Collections.emptyList()));
         categoryMap.put("health", new Category(Collections.emptyList()));
@@ -106,10 +100,6 @@ public class MainActivity extends AppCompatActivity {
         categoryMap.put("science", new Category(Collections.emptyList()));
         categoryMap.put("technology", new Category(Collections.emptyList()));
         categoryMap.put("entertainment", new Category(Collections.emptyList()));
-    }
-
-    public String[] getUserPreferences() {
-        return userPreferences;
     }
 
     public void setUserPreferences(String[] userPreferences) {

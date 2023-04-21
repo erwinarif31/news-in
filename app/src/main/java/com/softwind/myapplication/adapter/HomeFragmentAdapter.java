@@ -12,11 +12,11 @@ import com.softwind.myapplication.models.Article;
 
 import java.util.List;
 
-public class BreakingNewsAdapter extends RecyclerView.Adapter<BreakingNewsAdapter.ViewHolder> {
+public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder> {
 
     private List<Article> breakingNewsList;
 
-    public BreakingNewsAdapter(List<Article> breakingNewsList) {
+    public HomeFragmentAdapter(List<Article> breakingNewsList) {
         this.breakingNewsList = breakingNewsList;
     }
 
@@ -28,7 +28,7 @@ public class BreakingNewsAdapter extends RecyclerView.Adapter<BreakingNewsAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BreakingNewsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeFragmentAdapter.ViewHolder holder, int position) {
         holder.onBind(breakingNewsList.get(position));
     }
 
