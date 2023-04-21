@@ -1,14 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ProfileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.ProfileFragment"
+    android:fillViewport="true"
+    android:background="@drawable/layout_bg_profile">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            style="@style/TextTitle"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"/>
+
+        <RelativeLayout
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_picture"
+                android:layout_alignParentEnd="true"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/default_person"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sofyan Pujas"
+                android:maxLines="1"
+                android:layout_marginTop="12dp"
+                style="@style/TextTitle"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_name"
+                android:text="erwinarif31@gmail.com"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_toEndOf="@id/profile_name"
+                android:layout_toStartOf="@id/profile_picture"
+                android:src="@drawable/simple_line"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="12dp"/>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:cardCornerRadius="8dp">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="8dp">
+                
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="News"
+                    android:layout_margin="16dp"
+                    style="@style/TextTitle"
+                    android:textSize="20sp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/to_preferences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/ripple_container"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <RelativeLayout
+                        android:layout_marginHorizontal="20dp"
+                        android:paddingVertical="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_bg_select">
+
+                        <ImageView
+                            android:id="@+id/icon_preferences"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/icon_preferences"/>
+
+                        <TextView
+                            android:id="@+id/text_preferences"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/icon_preferences"
+                            android:text="Preferences"
+                            style="@style/TextTitle"
+                            android:textSize="16sp"
+                            android:layout_marginStart="12dp"/>
+
+                        <TextView
+                            android:id="@+id/text_preferences_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_preferences"
+                            android:layout_toEndOf="@id/icon_preferences"
+                            android:text="Manage your news preferences"
+                            android:layout_marginStart="12dp" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/to_like_articles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/ripple_container"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <RelativeLayout
+                        android:layout_marginHorizontal="20dp"
+                        android:paddingVertical="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_bg_select">
+
+                        <ImageView
+                            android:id="@+id/icon_liked_articles"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/icon_liked_articles"/>
+
+                        <TextView
+                            android:id="@+id/text_liked_articles"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/icon_liked_articles"
+                            android:text="Bookmarks"
+                            style="@style/TextTitle"
+                            android:textSize="16sp"
+                            android:layout_marginStart="12dp"/>
+
+                        <TextView
+                            android:id="@+id/text_liked_articles_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_liked_articles"
+                            android:layout_toEndOf="@id/icon_liked_articles"
+                            android:text="See all the articles you liked"
+                            android:layout_marginStart="12dp" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                
+            </LinearLayout>
+            
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
