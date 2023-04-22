@@ -39,4 +39,11 @@
         <item name="lottie_autoPlay">true</item>
         <item name="lottie_rawRes">@raw/loading_animation</item>
     </style>
+
+    <style name="CounterText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+    </style>
 </resources>
