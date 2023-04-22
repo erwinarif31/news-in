@@ -10,6 +10,7 @@ import androidx.databinding.ObservableInt;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityHomeBinding;
 import com.softwind.myapplication.fragment.DiscoverFragment;
@@ -28,10 +29,12 @@ import java.util.Set;
  * The type Main activity.
  */
 public class MainActivity extends AppCompatActivity {
-    private ActivityHomeBinding binding;
-    private Fragment fragment = new HomeFragment();
     public final static ObservableInt mCategoryCount = new ObservableInt(0);
     public static Map<String, Category> categoryMap = new HashMap<>();
+    private ActivityHomeBinding binding;
+    private Fragment fragment = new HomeFragment();
+    private Boolean toProfile;
+    private FirebaseAuth mAuth;
 
     public static String[] userPreferences;
 
@@ -42,8 +45,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         userPreferences = new String[]{"health", "sports", "science"}; // temporary preferences
+        mAuth = FirebaseAuth.getInstance();
+        toProfile = getIntent().getBooleanExtra("TO_PROFILE", false);
 
-//        showSplash();
+        if (toProfile) {
+            fragment = new ProfileFragment();
+            binding.bottomNavbar.setSelectedItemId(R.id.navbar_profile);
+            replaceFragment(fragment);
+        }
+
+//        showSplash(); // Coba nyalakan wkwkkw
         replaceFragment(fragment);
         setCategoryMap(categoryMap);
         setNavbarListener();
@@ -127,4 +138,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 3200);
     }
 
+    public FirebaseAuth getUser() {
+        return this.mAuth;
+    }
 }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RegisterActivity">
+
+
+    <ImageView
+        app:layout_constraintBottom_toTopOf="@id/ll_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash"/>
+
+    <LinearLayout
+        android:id="@+id/ll_register"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="18dp"
+            android:layout_height="wrap_content"
+            style="@style/CounterText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your full name"
+                android:drawableStart="@drawable/round_person_24_green"
+                android:drawablePadding="12dp"
+                android:inputType="textEmailAddress"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="18dp"
+            android:layout_height="wrap_content"
+            style="@style/CounterText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your email"
+                android:drawableStart="@drawable/round_email_24"
+                android:drawablePadding="12dp"
+                android:inputType="textEmailAddress"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="18dp"
+            android:layout_height="wrap_content"
+            style="@style/CounterText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your new password"
+                android:drawableStart="@drawable/round_key_24"
+                android:drawablePadding="12dp"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="18dp"
+            android:layout_height="wrap_content"
+            style="@style/CounterText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password_confirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm your password"
+                android:drawableStart="@drawable/round_key_24"
+                android:drawablePadding="12dp"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="18dp"
+            android:text="Sign Up"
+            app:cornerRadius="16dp"
+            android:padding="16dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/label_sign_in_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/to_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/label_sign_in_hint"
+        app:layout_constraintEnd_toEndOf="@id/label_sign_in_hint"
+        app:layout_constraintStart_toStartOf="@id/label_sign_in_hint"
+        android:padding="12dp"
+        android:textColor="@color/green_emerald"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

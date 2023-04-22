@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "749084474708",
+    "project_id": "news-in-932a2",
+    "storage_bucket": "news-in-932a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749084474708:android:3a0b4d25e3f8970542dcc1",
+        "android_client_info": {
+          "package_name": "com.softwind.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749084474708-ef8n788dlf3ft2cnjt3gbl3p3fu85ios.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgLs2KMbaxLjptXyQV-EqvneuaQvqjet0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749084474708-ef8n788dlf3ft2cnjt3gbl3p3fu85ios.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
