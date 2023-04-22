@@ -93,14 +93,6 @@
                 android:layout_centerVertical="true"
                 android:text="@string/title_breaking_news" />
 
-            <TextView
-                android:id="@+id/more_breaking_news"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:text="More" />
-
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

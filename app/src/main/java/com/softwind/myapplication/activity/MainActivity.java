@@ -4,10 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -17,16 +15,14 @@ import com.softwind.myapplication.databinding.ActivityHomeBinding;
 import com.softwind.myapplication.fragment.DiscoverFragment;
 import com.softwind.myapplication.fragment.HomeFragment;
 import com.softwind.myapplication.fragment.ProfileFragment;
-import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.Category;
 import com.softwind.myapplication.util.ApiClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The type Main activity.
@@ -34,7 +30,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
     private Fragment fragment = new HomeFragment();
-    private final List<Article> breakingArticles = new ArrayList<>();
     public final static ObservableInt mCategoryCount = new ObservableInt(0);
     public static Map<String, Category> categoryMap = new HashMap<>();
 
@@ -53,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setCategoryMap(categoryMap);
         setNavbarListener();
         fetchBreakingArticles();
-        fetchArticlesPreferences(userPreferences);
+        fetchArticles();
 
     }
 
@@ -65,11 +60,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchArticlesPreferences(String[] userPreferences) {
-        for (String preference : userPreferences) {
-            Category category = categoryMap.get(preference);
+    private void fetchArticles() {
+        Set<String> keys = categoryMap.keySet();
+        for (String categoryName : keys) {
+            Category category = categoryMap.get(categoryName);
 
-            ApiClient.getNewsWithCategory(preference, category, articles -> category.setArticles(Arrays.asList(articles)));
+            ApiClient.getNewsWithCategory(categoryName, category, articles -> {
+                assert category != null;
+                category.setArticles(Arrays.asList(articles));
+            });
         }
     }
 
@@ -103,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
         categoryMap.put("business", new Category(Collections.emptyList()));
         categoryMap.put("science", new Category(Collections.emptyList()));
         categoryMap.put("technology", new Category(Collections.emptyList()));
-//        categoryMap.put("entertainment", new Category(Collections.emptyList()));
+        categoryMap.put("entertainment", new Category(Collections.emptyList()));
     }
 
     public void setUserPreferences(String[] userPreferences) {
-        this.userPreferences = userPreferences;
+        MainActivity.userPreferences = userPreferences;
     }
 
     public void showSplash() {
