@@ -1,5 +1,6 @@
 package com.softwind.myapplication.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,11 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.softwind.myapplication.R;
+import com.softwind.myapplication.activity.ArticleActivity;
 import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.adapter.CategoryNewsAdapter;
 import com.softwind.myapplication.databinding.FragmentDiscoverBinding;
+import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.Category;
 
 public class DiscoverFragment extends Fragment {
@@ -39,10 +42,11 @@ public class DiscoverFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentDiscoverBinding.bind(view);
+        setRecyclerView("world");
         MainActivity.mCategoryCount.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                if (MainActivity.mCategoryCount.get() == MainActivity.categoryMap.size()) {
+                if (!MainActivity.categoryMap.get("world").getArticles().isEmpty()) {
                     setRecyclerView("world");
                     binding.refreshAnimation.setVisibility(View.GONE);
                 }
@@ -71,6 +75,18 @@ public class DiscoverFragment extends Fragment {
         Category category = MainActivity.categoryMap.get(categoryName);
         binding.rvDiscoverNews.setLayoutManager(new LinearLayoutManager(getContext()));
         CategoryNewsAdapter adapter = new CategoryNewsAdapter(category.getArticles());
+        adapter.setClickListener(new CategoryNewsAdapter.ClickListener() {
+            @Override
+            public void onClick(Article article) {
+                goToArticle(article);
+            }
+        });
         binding.rvDiscoverNews.setAdapter(adapter);
+    }
+
+    private void goToArticle(Article article) {
+        Intent intent = new Intent(getContext(), ArticleActivity.class);
+        intent.putExtra(MainActivity.EXTRA_ARTICLE, article);
+        startActivity(intent);
     }
 }

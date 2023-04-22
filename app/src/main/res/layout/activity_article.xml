@@ -25,6 +25,12 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/sample" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lav_loading"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                style="@style/LoadingPlaceholder"/>
+
             <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="56dp"

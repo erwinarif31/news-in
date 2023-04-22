@@ -4,12 +4,12 @@ import static com.softwind.myapplication.activity.MainActivity.categoryMap;
 import static com.softwind.myapplication.activity.MainActivity.mCategoryCount;
 import static com.softwind.myapplication.activity.MainActivity.userPreferences;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +23,9 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.softwind.myapplication.activity.ArticleActivity;
+import com.softwind.myapplication.activity.MainActivity;
+import com.softwind.myapplication.adapter.CategoryNewsAdapter;
 import com.softwind.myapplication.adapter.HomeFragmentAdapter;
 import com.softwind.myapplication.databinding.FragmentHomeBinding;
 import com.softwind.myapplication.models.Article;
@@ -58,44 +61,49 @@ public class HomeFragment extends Fragment {
 
     private void setContent(@NonNull View view) {
         Category breaking = categoryMap.get("breaking");
+        assert breaking != null;
         if (breaking.getIsDone().get()) {
             List<Article> articles = breaking.getArticles();
             setHeadline(articles.get(0));
 
-            setRecyclerView(view, home.rvBreakingNews, articles);
+            setRvBreakingNews(view, home.rvBreakingNews, articles);
         }
 
         if (isFetchPreferenceDone() && mCategoryCount.get() >= userPreferences.length) {
             forYouArticles = new ArrayList<>();
             for (String preference : userPreferences) {
                 Category category = categoryMap.get(preference);
+                assert category != null;
                 forYouArticles.addAll(category.getArticles());
             }
             Collections.shuffle(forYouArticles);
 
-            setRecyclerView(view, home.rvForYou, forYouArticles);
+            setRvForYou(view, home.rvForYou, forYouArticles);
         }
+    }
+
+    private void setRvForYou(View view, RecyclerView rvForYou, List<Article> forYouArticles) {
+        rvForYou.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        CategoryNewsAdapter adapter = new CategoryNewsAdapter(forYouArticles);
+        adapter.setClickListener(this::goToArticle);
+        rvForYou.setAdapter(adapter);
     }
 
     private void onContentLoaded(@NonNull View view) {
 
     }
 
-    private void setRecyclerView(@NonNull View view, RecyclerView rv, List<Article> articles) {
+    private void setRvBreakingNews(@NonNull View view, RecyclerView rv, List<Article> articles) {
         rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         HomeFragmentAdapter adapter = new HomeFragmentAdapter(articles);
-        adapter.setClickListener(new HomeFragmentAdapter.ClickListener() {
-            @Override
-            public void onArticleClicked(Article article) {
-                Toast.makeText(getContext(), article.getLink(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        adapter.setClickListener(this::goToArticle);
         rv.setAdapter(adapter);
     }
 
     private boolean isFetchPreferenceDone() {
         for (String preferences : userPreferences) {
             Category category = categoryMap.get(preferences);
+            assert category != null;
             if (!category.getIsDone().get()) {
                 return false;
             }
@@ -111,6 +119,7 @@ public class HomeFragment extends Fragment {
 
     private void setHeadline(Article article) {
         home.tvTopHeadline.setText(article.getTitle());
+        home.rlHeadline.setOnClickListener(v -> goToArticle(article));
 
         if (getActivity() == null) {
             return;
@@ -134,7 +143,8 @@ public class HomeFragment extends Fragment {
 
             }).into(home.topHeadlineImage);
 
-        } else {
+        }
+//        else {
 //            String category = article.getCategory()[0];
 //            switch (category) {
 //                case "top":
@@ -152,7 +162,13 @@ public class HomeFragment extends Fragment {
 //                case "entertainment":
 //                    break;
 //            }
-        }
+//        }
 
+    }
+
+    private void goToArticle(Article article) {
+        Intent intent = new Intent(getContext(), ArticleActivity.class);
+        intent.putExtra(MainActivity.EXTRA_ARTICLE, article);
+        startActivity(intent);
     }
 }

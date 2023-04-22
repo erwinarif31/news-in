@@ -1,10 +1,15 @@
 package com.softwind.myapplication.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Article {
+public class Article implements Parcelable {
     private String title;
     private String link;
     private String[] keywords;
@@ -34,6 +39,34 @@ public class Article {
         this.country = country;
         this.language = language;
     }
+
+    protected Article(Parcel in) {
+        title = in.readString();
+        link = in.readString();
+        keywords = in.createStringArray();
+        creator = in.createStringArray();
+        video_url = in.readString();
+        description = in.readString();
+        content = in.readString();
+        pubDate = in.readString();
+        image_url = in.readString();
+        source_id = in.readString();
+        category = in.createStringArray();
+        country = in.createStringArray();
+        language = in.readString();
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -165,5 +198,27 @@ public class Article {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(link);
+        parcel.writeStringArray(keywords);
+        parcel.writeStringArray(creator);
+        parcel.writeString(video_url);
+        parcel.writeString(description);
+        parcel.writeString(content);
+        parcel.writeString(pubDate);
+        parcel.writeString(image_url);
+        parcel.writeString(source_id);
+        parcel.writeStringArray(category);
+        parcel.writeStringArray(country);
+        parcel.writeString(language);
     }
 }

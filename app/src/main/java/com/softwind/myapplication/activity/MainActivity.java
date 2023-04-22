@@ -1,6 +1,8 @@
 package com.softwind.myapplication.activity;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
@@ -16,6 +18,7 @@ import com.softwind.myapplication.databinding.ActivityHomeBinding;
 import com.softwind.myapplication.fragment.DiscoverFragment;
 import com.softwind.myapplication.fragment.HomeFragment;
 import com.softwind.myapplication.fragment.ProfileFragment;
+import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.Category;
 import com.softwind.myapplication.util.ApiClient;
 
@@ -30,6 +33,7 @@ import java.util.Set;
  */
 public class MainActivity extends AppCompatActivity {
     public final static ObservableInt mCategoryCount = new ObservableInt(0);
+    public static final String EXTRA_ARTICLE = "extra_article";
     public static Map<String, Category> categoryMap = new HashMap<>();
     private ActivityHomeBinding binding;
     private Fragment fragment = new HomeFragment();
@@ -140,5 +144,11 @@ public class MainActivity extends AppCompatActivity {
 
     public FirebaseAuth getUser() {
         return this.mAuth;
+    }
+
+    public void goToArticle(Context context, Article article) {
+        Intent intent = new Intent(context, ArticleActivity.class);
+        intent.putExtra(MainActivity.EXTRA_ARTICLE, article);
+        startActivity(intent);
     }
 }

@@ -79,12 +79,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
                 }).into(binding.breakingNewsImage);
             }
 
-            binding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickListener.onArticleClicked(article);
-                }
-            });
+            binding.getRoot().setOnClickListener(view -> clickListener.onArticleClicked(article));
         }
     }
 

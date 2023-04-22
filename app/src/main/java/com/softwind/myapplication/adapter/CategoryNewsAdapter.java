@@ -21,9 +21,14 @@ import java.util.List;
 
 public class CategoryNewsAdapter extends RecyclerView.Adapter<CategoryNewsAdapter.ViewHolder> {
     private List<Article> articleList;
+    public ClickListener clickListener;
 
     public CategoryNewsAdapter(List<Article> articleList) {
         this.articleList = articleList;
+    }
+
+    public void setClickListener (ClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -71,6 +76,12 @@ public class CategoryNewsAdapter extends RecyclerView.Adapter<CategoryNewsAdapte
 
                 }).into(binding.ivArticleImage);
             }
+
+            binding.getRoot().setOnClickListener(v -> clickListener.onClick(article));
         }
+    }
+
+    public interface ClickListener {
+        void onClick(Article article);
     }
 }
