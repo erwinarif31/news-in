@@ -53,6 +53,7 @@
         </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -63,44 +64,64 @@
             app:tabMode="scrollable">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_health"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/discover_tab_health" />
+                android:text="@string/discover_tab_world" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_sports"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/discover_tab_sports" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_business"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/discover_tab_business" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_science"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_entertainment" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_environment" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_food" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_health" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_politics" />
+
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/discover_tab_science" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_technology"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_tab_sports" />
+
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/discover_tab_technology" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_entertainment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/discover_tab_entertainment" />
+                android:text="@string/discover_tab_tourism" />
 
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_discover_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

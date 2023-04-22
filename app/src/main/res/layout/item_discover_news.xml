@@ -5,19 +5,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="18dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/article_image"
-        android:layout_width="92dp"
-        android:layout_height="92dp"
-        android:src="@drawable/sample"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/DiscoverySmoothImage"/>
+    <FrameLayout
+        android:id="@+id/fl_article_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_article_image"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+            android:background="@color/french_grey"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/DiscoverySmoothImage"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/breaking_news_image_loading"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+            style="@style/LoadingPlaceholder"/>
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/article_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/article_image"
+        android:layout_toEndOf="@id/fl_article_image"
         android:layout_marginTop="8dp"
         android:layout_marginStart="12dp"
         android:text="@string/lorem30"
@@ -30,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/article_title"
-        android:layout_toEndOf="@id/article_image"
+        android:layout_toEndOf="@id/fl_article_image"
         android:layout_marginTop="8dp"
         android:gravity="center_vertical">
 

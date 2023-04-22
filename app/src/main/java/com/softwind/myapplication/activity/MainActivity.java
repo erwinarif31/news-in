@@ -103,6 +103,11 @@ public class MainActivity extends AppCompatActivity {
         categoryMap.put("science", new Category(Collections.emptyList()));
         categoryMap.put("technology", new Category(Collections.emptyList()));
         categoryMap.put("entertainment", new Category(Collections.emptyList()));
+        categoryMap.put("environment", new Category(Collections.emptyList()));
+        categoryMap.put("food", new Category(Collections.emptyList()));
+        categoryMap.put("politics", new Category(Collections.emptyList()));
+        categoryMap.put("tourism", new Category(Collections.emptyList()));
+        categoryMap.put("world", new Category(Collections.emptyList()));
     }
 
     public void setUserPreferences(String[] userPreferences) {

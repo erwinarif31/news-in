@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="discover_tab_environment">Environment</string>
+    <string name="discover_tab_food">Food</string>
+    <string name="discover_tab_politics">Politics</string>
+</resources>
