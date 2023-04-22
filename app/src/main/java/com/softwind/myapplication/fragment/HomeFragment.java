@@ -112,6 +112,10 @@ public class HomeFragment extends Fragment {
     private void setHeadline(Article article) {
         home.tvTopHeadline.setText(article.getTitle());
 
+        if (getActivity() == null) {
+            return;
+        }
+
         if (article.getImage_url() != null) {
             Glide.with(this).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
                 @Override
