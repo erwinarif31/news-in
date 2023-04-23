@@ -12,7 +12,7 @@ import com.softwind.myapplication.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private ProgressDialog progressDialog;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         binding.btnSignIn.setOnClickListener(v -> {
-            String email = binding.inputEmail.getText().toString();
-            String password = binding.inputPassword.getText().toString();
+            String email = String.valueOf(binding.inputEmail.getText());
+            String password = String.valueOf(binding.inputPassword.getText());
             loginAuth(email, password);
         });
 

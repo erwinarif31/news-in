@@ -29,8 +29,8 @@ import com.softwind.myapplication.util.ApiClient;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -43,10 +43,8 @@ public class MainActivity extends AppCompatActivity {
     public static DatabaseReference sDatabase = FirebaseDatabase.getInstance("https://news-in-932a2-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
     private ActivityHomeBinding binding;
     private Fragment fragment = new HomeFragment();
-    private Boolean toProfile;
     private FirebaseAuth mAuth;
 
-    public static List<String> userPreferences;
     public static User user;
 
     @Override
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        toProfile = getIntent().getBooleanExtra("TO_PROFILE", false);
+        boolean toProfile = getIntent().getBooleanExtra("TO_PROFILE", false);
         if (toProfile) {
             fragment = new ProfileFragment();
             binding.bottomNavbar.setSelectedItemId(R.id.navbar_profile);
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getUserData() {
-        sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);

@@ -14,7 +14,7 @@ import com.softwind.myapplication.databinding.ActivityRegisterBinding;
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private ProgressDialog progressDialog;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,10 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         binding.btnSignUp.setOnClickListener(v -> {
-            String fullName = binding.inputFullName.getText().toString();
-            String email = binding.inputEmail.getText().toString();
-            String password = binding.inputPassword.getText().toString();
-            String confirmPassword = binding.inputPasswordConfirmation.getText().toString();
+            String fullName = String.valueOf(binding.inputFullName.getText());
+            String email = String.valueOf(binding.inputEmail.getText());
+            String password = String.valueOf(binding.inputPassword.getText());
+            String confirmPassword = String.valueOf(binding.inputPasswordConfirmation.getText());
             registerAuth(fullName, email, password, confirmPassword);
         });
 

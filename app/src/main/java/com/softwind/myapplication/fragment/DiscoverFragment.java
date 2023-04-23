@@ -48,7 +48,6 @@ public class DiscoverFragment extends Fragment {
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (!MainActivity.categoryMap.get("world").getArticles().isEmpty()) {
                     setRecyclerView("world");
-                    binding.refreshAnimation.setVisibility(View.GONE);
                 }
             }
         });
@@ -75,13 +74,9 @@ public class DiscoverFragment extends Fragment {
         Category category = MainActivity.categoryMap.get(categoryName);
         binding.rvDiscoverNews.setLayoutManager(new LinearLayoutManager(getContext()));
         CategoryNewsAdapter adapter = new CategoryNewsAdapter(category.getArticles());
-        adapter.setClickListener(new CategoryNewsAdapter.ClickListener() {
-            @Override
-            public void onClick(Article article) {
-                goToArticle(article);
-            }
-        });
+        adapter.setClickListener(this::goToArticle);
         binding.rvDiscoverNews.setAdapter(adapter);
+        binding.refreshAnimation.setVisibility(View.GONE);
     }
 
     private void goToArticle(Article article) {

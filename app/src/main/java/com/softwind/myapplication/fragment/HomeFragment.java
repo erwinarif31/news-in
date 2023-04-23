@@ -36,9 +36,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
     private FragmentHomeBinding home;
-    private List<Article> forYouArticles;
 
     public HomeFragment() {/* Constructor */}
     @Override
@@ -70,7 +68,7 @@ public class HomeFragment extends Fragment {
         }
 
         if (user != null && isFetchPreferenceDone() && mCategoryCount.get() >= user.getPreferences().size()) {
-            forYouArticles = new ArrayList<>();
+            List<Article> forYouArticles = new ArrayList<>();
             System.out.println(user.getPreferences().size());
             for (String preference : user.getPreferences()) {
                 Category category = categoryMap.get(preference);
@@ -88,10 +86,6 @@ public class HomeFragment extends Fragment {
         CategoryNewsAdapter adapter = new CategoryNewsAdapter(forYouArticles);
         adapter.setClickListener(this::goToArticle);
         rvForYou.setAdapter(adapter);
-    }
-
-    private void onContentLoaded(@NonNull View view) {
-
     }
 
     private void setRvBreakingNews(@NonNull View view, RecyclerView rv, List<Article> articles) {

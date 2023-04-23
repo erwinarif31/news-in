@@ -14,6 +14,7 @@ import com.softwind.myapplication.models.User;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class PreferencesActivity extends AppCompatActivity {
@@ -27,10 +28,11 @@ public class PreferencesActivity extends AppCompatActivity {
         binding = ActivityPreferencesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        boolean fromLogin = getIntent().getBooleanExtra("TO_PREFERRED_CATEGORIES", false);
         binding.backButton.setOnClickListener(v -> finish());
-        switches = getSwitches();
         setToggleChangeListener();
+
+        switches = getSwitches();
+        boolean fromLogin = getIntent().getBooleanExtra("TO_PREFERRED_CATEGORIES", false);
         if (fromLogin) {
             binding.btnUpdatePreference.setText("Next");
             binding.backButton.setEnabled(false);
@@ -41,23 +43,13 @@ public class PreferencesActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         binding.btnUpdatePreference.setOnClickListener(v -> {
             List<String> preferenceList = new ArrayList<>(newPreferencesList);
-            if (fromLogin) {
-                MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).setValue(new User(preferenceList, new ArrayList<>()))
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                toProfile();
-                            }
-                        });
-            } else {
-                MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid())
+            if (fromLogin) { // create new user preferences
+                MainActivity.sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).setValue(new User(preferenceList, new ArrayList<>()))
+                        .addOnSuccessListener(unused -> toProfile());
+            } else { // update preferences
+                MainActivity.sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                         .child("preferences").setValue(preferenceList)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        finish();
-                    }
-                });
+                        .addOnSuccessListener(unused -> finish());
             }
         });
     }
@@ -100,17 +92,6 @@ public class PreferencesActivity extends AppCompatActivity {
         for (SwitchCompat switchCompat : switches) {
            switchCompat.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, switchCompat.getText().toString().toLowerCase()));
         }
-//        binding.swBusiness.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "business"));
-//        binding.swEntertainment.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "entertainment"));
-//        binding.swEnvironment.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "environment"));
-//        binding.swFood.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "food"));
-//        binding.swHealth.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "health"));
-//        binding.swPolitics.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "politics"));
-//        binding.swScience.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "science"));
-//        binding.swSports.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "sports"));
-//        binding.swTechnology.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "technology"));
-//        binding.swTourism.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "tourism"));
-//        binding.swWorld.setOnCheckedChangeListener((compoundButton, b) -> updateList(b, "world"));
     }
 
     private void updateList(boolean b, String category) {
