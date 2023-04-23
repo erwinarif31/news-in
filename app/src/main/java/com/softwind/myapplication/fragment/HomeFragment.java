@@ -2,7 +2,7 @@ package com.softwind.myapplication.fragment;
 
 import static com.softwind.myapplication.activity.MainActivity.categoryMap;
 import static com.softwind.myapplication.activity.MainActivity.mCategoryCount;
-import static com.softwind.myapplication.activity.MainActivity.userPreferences;
+import static com.softwind.myapplication.activity.MainActivity.user;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -69,9 +69,10 @@ public class HomeFragment extends Fragment {
             setRvBreakingNews(view, home.rvBreakingNews, articles);
         }
 
-        if (isFetchPreferenceDone() && mCategoryCount.get() >= userPreferences.length) {
+        if (user != null && isFetchPreferenceDone() && mCategoryCount.get() >= user.getPreferences().size()) {
             forYouArticles = new ArrayList<>();
-            for (String preference : userPreferences) {
+            System.out.println(user.getPreferences().size());
+            for (String preference : user.getPreferences()) {
                 Category category = categoryMap.get(preference);
                 assert category != null;
                 forYouArticles.addAll(category.getArticles());
@@ -101,7 +102,7 @@ public class HomeFragment extends Fragment {
     }
 
     private boolean isFetchPreferenceDone() {
-        for (String preferences : userPreferences) {
+        for (String preferences : user.getPreferences()) {
             Category category = categoryMap.get(preferences);
             assert category != null;
             if (!category.getIsDone().get()) {

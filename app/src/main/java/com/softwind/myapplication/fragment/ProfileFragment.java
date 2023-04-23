@@ -23,7 +23,6 @@ import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
-
     private FragmentProfileBinding binding;
 
     public ProfileFragment() {/* Constructor */}
@@ -54,6 +53,7 @@ public class ProfileFragment extends Fragment {
 
         binding.btnPreferences.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), PreferencesActivity.class);
+            System.out.println(mAuth.getUid());
             startActivity(intent);
         });
 

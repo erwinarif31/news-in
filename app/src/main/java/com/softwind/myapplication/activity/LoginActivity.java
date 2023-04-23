@@ -1,16 +1,13 @@
 package com.softwind.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityLoginBinding;
-import com.softwind.myapplication.fragment.ProfileFragment;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
@@ -22,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         Boolean fromRegister = getIntent().getBooleanExtra("FROM_REGISTER", false);
-        if (mAuth.getCurrentUser() != null) openAuth(fromRegister);
+        if (mAuth.getCurrentUser() != null) openPreferredCategories(fromRegister);
 
         setContentView(binding.getRoot());
 
@@ -54,9 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-//                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                openAuth(true);
-
+                openAuth();
             } else {
                 // If email is not found
                 if (task.getException().getMessage().equals("There is no user record corresponding to this identifier. The user may have been deleted.")) {
@@ -73,11 +68,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void openAuth(Boolean toProfile) {
+    private void openAuth() {
         Intent toHome = new Intent(LoginActivity.this, MainActivity.class);
         toHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        toHome.putExtra("TO_PROFILE", toProfile);
+        toHome.putExtra("TO_PROFILE", true);
         startActivity(toHome);
+        finish();
+    }
+
+    private void openPreferredCategories(Boolean toPreferredCategories) {
+        Intent intent = new Intent(LoginActivity.this, PreferencesActivity.class);
+        intent.putExtra("TO_PREFERRED_CATEGORIES", toPreferredCategories);
+        startActivity(intent);
         finish();
     }
 }

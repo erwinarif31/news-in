@@ -1,18 +1,14 @@
 package com.softwind.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.ktx.Firebase;
-import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {

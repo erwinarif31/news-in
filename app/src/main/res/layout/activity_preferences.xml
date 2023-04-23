@@ -51,6 +51,7 @@
                 android:padding="12dp">
 
                 <TextView
+                    android:id="@+id/tv_preferences_title"
                     style="@style/TextTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,319 +70,141 @@
                     android:layout_marginVertical="8dp"
                     android:background="@color/french_grey" />
 
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_business"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_business"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Business"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_business"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_entertainment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_entertainment"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Entertainment"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_entertainment"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Environment -->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_environment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_environment"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Environment"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_environment"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Food -->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_food"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_food"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Food"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_food"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Health -->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_health"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_health"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Health"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_health"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Politics-->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_politics"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_politics"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Politics"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_politics"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Science -->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_science"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_science"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Science"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_science"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Sports-->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_sports"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_sports"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Sports"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_sports"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Technology -->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_technology"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_technology"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Technology"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_technology"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Top -->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_tourism"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_tourism"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Top"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_top"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- Tourism -->
-
-                <LinearLayout
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_world"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Tourism"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_tourism"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
-
-                <!-- World -->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="World"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/toggle_world"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:padding="12dp" />
-
-                </LinearLayout>
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="@string/discover_tab_world"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_update_preference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="18dp"
+            android:text="UPDATE"
+            app:cornerRadius="16dp"
+            android:padding="16dp" />
     </LinearLayout>
 
 </ScrollView>
