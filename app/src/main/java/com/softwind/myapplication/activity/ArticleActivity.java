@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleActivity extends AppCompatActivity {
-    private ActivityArticleBinding binding;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    List<SavedArticles> save;
+    private ActivityArticleBinding binding;
+    private List<SavedArticles> save;
     private Article article;
 
     @Override
@@ -43,12 +43,16 @@ public class ArticleActivity extends AppCompatActivity {
         }
         setContent(article);
 
-        binding.backButton.setOnClickListener(v -> finish());
+        binding.backButton.setOnClickListener(v -> {
+            finish();
+        });
+
         binding.bookmarkButton.setOnClickListener(v -> {
             if (!isArticleSaved()) {
                 save.add(new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url()));
                 MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save);
                 binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
+                binding.lavBookmark.playAnimation();
             } else {
                 for (SavedArticles savedArticle : save) {
                     if (savedArticle.getTitle().equals(article.getTitle())) {
@@ -74,15 +78,15 @@ public class ArticleActivity extends AppCompatActivity {
 
     private void setContent(Article article) {
         binding.articleTitle.setText(article.getTitle());
-        binding.articleContent.setText(article.getContent());
+        binding.articleContent.setText((article.getContent() == null) ? "Have a better view on this article by going to the source." : article.getContent());
         binding.articleTime.setText(article.getDateDiff());
         if (isArticleSaved()) {
             binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
         }
         binding.toSourceButton.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(article.getLink()));
-            startActivity(i);
+            Intent source = new Intent(Intent.ACTION_VIEW);
+            source.setData(Uri.parse(article.getLink()));
+            startActivity(source);
         });
         if (article.getImage_url() != null) {
             Glide.with(getApplicationContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {

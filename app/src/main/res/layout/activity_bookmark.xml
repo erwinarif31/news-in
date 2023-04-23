@@ -13,6 +13,7 @@ tools:context=".activity.BookmarkActivity">
     android:orientation="vertical">
 
     <RelativeLayout
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp">
@@ -36,10 +37,22 @@ tools:context=".activity.BookmarkActivity">
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_no_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="No saved articles yet"
+        android:layout_margin="12dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16sp" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_bookmark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_bookmark_news"/>
 
 </LinearLayout>

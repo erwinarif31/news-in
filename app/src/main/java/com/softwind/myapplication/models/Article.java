@@ -40,7 +40,15 @@ public class Article implements Parcelable {
         this.language = language;
     }
 
-    protected Article(Parcel in) {
+    public Article(SavedArticles article) {
+        this.title = article.getTitle();
+        this.link = article.getLink();
+        this.content = article.getContent();
+        this.pubDate = article.getPubDate();
+        this.image_url = article.getImage_url();
+    }
+
+    public Article(Parcel in) {
         title = in.readString();
         link = in.readString();
         keywords = in.createStringArray();
@@ -144,7 +152,7 @@ public class Article implements Parcelable {
         long diffInDays = diffInHours / 24;
 
         if (diffInDays > 0) {
-            dateDiff = diffInDays + " days ago";
+            dateDiff = diffInDays + " day(s) ago";
         } else if (diffInHours > 0) {
             dateDiff = diffInHours + " hours ago";
         } else if (diffInMinutes > 0) {

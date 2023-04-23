@@ -24,6 +24,7 @@
         android:scaleType="centerCrop"
         app:lottie_rawRes="@raw/liquid_loading_animation"
         app:lottie_autoPlay="true"
+        android:layout_marginBottom="12dp"
         app:lottie_loop="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

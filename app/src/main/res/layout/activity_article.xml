@@ -22,8 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:foreground="@drawable/article_image_overlay"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample" />
+                android:scaleType="centerCrop" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lav_loading"
@@ -53,6 +52,17 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/round_bookmark_border_24" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lav_bookmark"
+                android:layout_width="256dp"
+                android:layout_height="256dp"
+                android:layout_marginEnd="-108dp"
+                android:layout_marginTop="-108dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                app:lottie_rawRes="@raw/explosion"
+                android:scaleType="centerCrop"/>
+
         </RelativeLayout>
 
         <TextView
@@ -60,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             style="@style/TextTitle"
             android:text="@string/desc_news_sample" />
 
@@ -74,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="4dp"
-                android:text="8 hours ago"/>
+                android:layout_marginTop="12dp"
+                android:text="XX hours ago"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -92,22 +102,23 @@
             android:id="@+id/article_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
             android:textSize="16sp"
             android:textColor="@color/night"
-            android:justificationMode="inter_word"
+            android:lineSpacingExtra="8sp"
+            android:lineSpacingMultiplier="1.25"
             android:text="@string/lorem30" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/to_source_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:layout_gravity="end"
             android:layout_marginBottom="12dp"
-            android:text="To Source"
-            android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+            android:text="Source"
+            app:cornerRadius="16dp"/>
 
     </LinearLayout>
 

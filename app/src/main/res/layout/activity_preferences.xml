@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp">
@@ -195,7 +196,6 @@
 
         </androidx.cardview.widget.CardView>
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_update_preference"
             android:layout_width="match_parent"
@@ -204,7 +204,8 @@
             android:layout_marginTop="18dp"
             android:text="UPDATE"
             app:cornerRadius="16dp"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:layout_marginBottom="4dp"/>
     </LinearLayout>
 
 </ScrollView>

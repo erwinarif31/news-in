@@ -1,5 +1,6 @@
 package com.softwind.myapplication.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,16 +36,53 @@ public class ProfileFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         FirebaseAuth mAuth = activity.getUser();
 
-        checkUser(mAuth);
+        checkAuthentication(mAuth);
+    }
 
-        binding.btnLogOut.setOnClickListener(v -> {
-            mAuth.signOut();
-            checkUser(mAuth);
-        });
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
+    private void checkAuthentication(FirebaseAuth user) {
+        if (user.getCurrentUser() == null) {
+            binding.profileNewsContainer.setVisibility(View.GONE);
+            binding.userContainer.setVisibility(View.GONE);
+            binding.guestContainer.setVisibility(View.VISIBLE);
+            binding.profileName.setText("Mr. Guest");
+            binding.profileEmail.setText("Reader");
+            setGuestButtons();
+
+        } else {
+            binding.profileNewsContainer.setVisibility(View.VISIBLE);
+            binding.userContainer.setVisibility(View.VISIBLE);
+            binding.guestContainer.setVisibility(View.GONE);
+            binding.profileName.setText(user.getCurrentUser().getDisplayName());
+            binding.profileEmail.setText(user.getCurrentUser().getEmail());
+            setUserButton(user);
+        }
+    }
+
+    private void setGuestButtons() {
         binding.btnSignIn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
+        });
+    }
+
+    private void setUserButton(FirebaseAuth mAuth) {
+        binding.btnLogOut.setOnClickListener(v -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+            alert.setTitle("Log out");
+            alert.setMessage("Are you sure you want to log out?");
+            alert.setPositiveButton("Yes", (dialog, which) -> {
+                mAuth.signOut();
+                checkAuthentication(mAuth);
+            });
+            alert.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+            alert.create().show();
         });
 
         binding.btnPreferences.setOnClickListener(v -> {
@@ -61,27 +99,4 @@ public class ProfileFragment extends Fragment {
         binding.btnUserSettings.setOnClickListener(v -> Toast.makeText(getContext(), "Hello user!", Toast.LENGTH_SHORT).show());
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    public void checkUser(FirebaseAuth user) {
-        if (user.getCurrentUser() == null) {
-            binding.profileNewsContainer.setVisibility(View.GONE);
-            binding.userContainer.setVisibility(View.GONE);
-            binding.guestContainer.setVisibility(View.VISIBLE);
-            binding.profileName.setText("Mr. Guest");
-            binding.profileEmail.setText("Reader");
-
-        } else {
-            binding.profileNewsContainer.setVisibility(View.VISIBLE);
-            binding.userContainer.setVisibility(View.VISIBLE);
-            binding.guestContainer.setVisibility(View.GONE);
-            binding.profileName.setText(user.getCurrentUser().getDisplayName());
-            binding.profileEmail.setText(user.getCurrentUser().getEmail());
-        }
-    }
 }
