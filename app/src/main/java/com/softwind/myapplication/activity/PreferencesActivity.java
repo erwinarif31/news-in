@@ -2,6 +2,7 @@ package com.softwind.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -33,10 +34,11 @@ public class PreferencesActivity extends AppCompatActivity {
         switches = getSwitches();
         setToggleChangeListener();
 
-        boolean fromLogin = getIntent().getBooleanExtra("TO_PREFERRED_CATEGORIES", false);
-        if (fromLogin) {
+        boolean fromRegister = getIntent().getBooleanExtra("TO_PREFERRED_CATEGORIES", false);
+        if (fromRegister) {
             binding.btnUpdatePreference.setText("Next");
             binding.backButton.setEnabled(false);
+            binding.backButton.setVisibility(View.INVISIBLE);
         } else {
             setPreferences();
         }
@@ -44,7 +46,7 @@ public class PreferencesActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         binding.btnUpdatePreference.setOnClickListener(v -> {
             List<String> preferenceList = new ArrayList<>(newPreferencesList);
-            if (fromLogin) { // create new user preferences
+            if (fromRegister) { // create new user preferences
                 MainActivity.sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).setValue(new User(preferenceList, Collections.emptyList()))
                         .addOnSuccessListener(unused -> toProfile());
             } else { // update preferences

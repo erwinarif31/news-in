@@ -6,8 +6,7 @@ public class User {
     private List<String> preferences;
     private List<SavedArticles> savedArticles;
 
-    public User() {
-    }
+    public User() {/* Constructor */}
 
     public User(List<String> preferences, List<SavedArticles> savedArticles) {
         this.preferences = preferences;

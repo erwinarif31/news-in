@@ -7,7 +7,7 @@ public class SavedArticles {
     private String pubDate;
     private String image_url;
 
-    public SavedArticles(){};
+    public SavedArticles(){/* Constructor */};
 
     public SavedArticles(String title, String link, String content, String pubDate, String image_url) {
         this.title = title;

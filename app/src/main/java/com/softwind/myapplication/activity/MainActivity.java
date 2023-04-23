@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,22 +31,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
  * The type Main activity.
  */
 public class MainActivity extends AppCompatActivity {
-    public final static ObservableInt mCategoryCount = new ObservableInt(0);
+
+    public static final ObservableInt mCategoryCount = new ObservableInt(0);
     public static final String EXTRA_ARTICLE = "extra_article";
     public static Map<String, Category> categoryMap = new HashMap<>();
+    public static User user;
     public static DatabaseReference sDatabase = FirebaseDatabase.getInstance("https://news-in-932a2-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
     private ActivityHomeBinding binding;
     private Fragment fragment = new HomeFragment();
     private FirebaseAuth mAuth;
-
-    public static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             showSplash();
         }
 
-        getUserData();
+        getUserData(mAuth.getCurrentUser());
         setCategoryMap(categoryMap);
         replaceFragment(fragment);
         setNavbarListener();
@@ -72,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
         fetchArticles();
     }
 
-    private void getUserData() {
-        sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+    private void getUserData(FirebaseUser loggedUser) {
+        if (loggedUser == null) return; // Filter for guest
+        sDatabase.child("users").child(loggedUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
