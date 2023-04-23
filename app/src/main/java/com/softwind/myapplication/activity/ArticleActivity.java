@@ -14,11 +14,20 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.firebase.auth.FirebaseAuth;
+import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityArticleBinding;
 import com.softwind.myapplication.models.Article;
+import com.softwind.myapplication.models.SavedArticles;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleActivity extends AppCompatActivity {
     private ActivityArticleBinding binding;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    List<SavedArticles> save;
+    private Article article;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,27 +35,59 @@ public class ArticleActivity extends AppCompatActivity {
         binding = ActivityArticleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Article article = getIntent().getParcelableExtra(MainActivity.EXTRA_ARTICLE);
+        article = getIntent().getParcelableExtra(MainActivity.EXTRA_ARTICLE);
+        if (MainActivity.user.getSavedArticles() != null) {
+            save = new ArrayList<>(MainActivity.user.getSavedArticles());
+        } else {
+            save = new ArrayList<>();
+        }
         setContent(article);
-        binding.backButton.setOnClickListener(v -> finish());
 
+        binding.backButton.setOnClickListener(v -> finish());
+        binding.bookmarkButton.setOnClickListener(v -> {
+            if (!isArticleSaved()) {
+                save.add(new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url()));
+                MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save);
+                binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
+            } else {
+                for (SavedArticles savedArticle : save) {
+                    if (savedArticle.getTitle().equals(article.getTitle())) {
+                        save.remove(savedArticle);
+                        break;
+                    }
+                }
+                MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save);
+                binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_border_24);
+            }
+        });
+
+    }
+
+    private boolean isArticleSaved() {
+        for (SavedArticles savedArticle : save) {
+            if (savedArticle.getTitle().equals(article.getTitle())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void setContent(Article article) {
         binding.articleTitle.setText(article.getTitle());
         binding.articleContent.setText(article.getContent());
         binding.articleTime.setText(article.getDateDiff());
+        if (isArticleSaved()) {
+            binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
+        }
         binding.toSourceButton.setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(article.getLink()));
             startActivity(i);
         });
         if (article.getImage_url() != null) {
-//                Glide.with(itemView.getContext()).load(article.getImage_url()).into(binding.breakingNewsImage);
             Glide.with(getApplicationContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                        Toast.makeText(itemView.getContext(), "Oops. There's a problem with your network!", Toast.LENGTH_SHORT).show();
                     binding.lavLoading.setVisibility(View.GONE);
                     return false;
                 }
@@ -58,7 +99,6 @@ public class ArticleActivity extends AppCompatActivity {
                 }
 
             }).into(binding.articleImage);
-
         }
     }
 }

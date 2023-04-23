@@ -12,5 +12,7 @@ public class BookmarkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
+
+        System.out.println(MainActivity.user.getSavedArticles().size());
     }
 }

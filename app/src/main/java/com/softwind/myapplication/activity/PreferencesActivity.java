@@ -12,6 +12,7 @@ import com.softwind.myapplication.databinding.ActivityPreferencesBinding;
 import com.softwind.myapplication.models.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -29,9 +30,9 @@ public class PreferencesActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backButton.setOnClickListener(v -> finish());
+        switches = getSwitches();
         setToggleChangeListener();
 
-        switches = getSwitches();
         boolean fromLogin = getIntent().getBooleanExtra("TO_PREFERRED_CATEGORIES", false);
         if (fromLogin) {
             binding.btnUpdatePreference.setText("Next");
@@ -44,7 +45,7 @@ public class PreferencesActivity extends AppCompatActivity {
         binding.btnUpdatePreference.setOnClickListener(v -> {
             List<String> preferenceList = new ArrayList<>(newPreferencesList);
             if (fromLogin) { // create new user preferences
-                MainActivity.sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).setValue(new User(preferenceList, new ArrayList<>()))
+                MainActivity.sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).setValue(new User(preferenceList, Collections.emptyList()))
                         .addOnSuccessListener(unused -> toProfile());
             } else { // update preferences
                 MainActivity.sDatabase.child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())

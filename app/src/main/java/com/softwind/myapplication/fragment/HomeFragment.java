@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment {
 
         if (user != null && isFetchPreferenceDone() && mCategoryCount.get() >= user.getPreferences().size()) {
             List<Article> forYouArticles = new ArrayList<>();
-            System.out.println(user.getPreferences().size());
             for (String preference : user.getPreferences()) {
                 Category category = categoryMap.get(preference);
                 assert category != null;

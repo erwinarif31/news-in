@@ -4,12 +4,12 @@ import java.util.List;
 
 public class User {
     private List<String> preferences;
-    private List<String> savedArticles;
+    private List<SavedArticles> savedArticles;
 
     public User() {
     }
 
-    public User(List<String> preferences, List<String> savedArticles) {
+    public User(List<String> preferences, List<SavedArticles> savedArticles) {
         this.preferences = preferences;
         this.savedArticles = savedArticles;
     }
@@ -22,11 +22,11 @@ public class User {
         this.preferences = preferences;
     }
 
-    public List<String> getSavedArticles() {
+    public List<SavedArticles> getSavedArticles() {
         return savedArticles;
     }
 
-    public void setSavedArticles(List<String> savedArticles) {
+    public void setSavedArticles(List<SavedArticles> savedArticles) {
         this.savedArticles = savedArticles;
     }
 }
