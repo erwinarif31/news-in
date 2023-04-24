@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.softwind.myapplication.activity.ArticleActivity;
+import com.softwind.myapplication.activity.LoginActivity;
 import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.adapter.CategoryNewsAdapter;
 import com.softwind.myapplication.adapter.HomeFragmentAdapter;
@@ -61,6 +62,17 @@ public class HomeFragment extends Fragment {
             setRvBreakingNews(view, home.rvBreakingNews, articles);
         }
 
+        if (user == null) {
+            home.forYouAuth.setVisibility(View.VISIBLE);
+            home.btnLogin.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            });
+
+        } else {
+            home.forYouAuth.setVisibility(View.GONE);
+        }
+
         if (user != null && isFetchPreferenceDone() && mCategoryCount.get() >= user.getPreferences().size()) {
             List<SavedArticles> forYouArticles = new ArrayList<>();
             for (String preference : user.getPreferences()) {
@@ -71,6 +83,7 @@ public class HomeFragment extends Fragment {
             Collections.shuffle(forYouArticles);
 
             setRvForYou(view, home.rvForYou, forYouArticles);
+            home.forYouAuth.setVisibility(View.GONE);
         }
     }
 
