@@ -59,11 +59,9 @@ public class CategoryNewsAdapter extends RecyclerView.Adapter<CategoryNewsAdapte
             binding.articleTitle.setText(article.getTitle());
             binding.articleTime.setText(article.getPubDate());
             if (article.getImage_url() != null) {
-//                Glide.with(itemView.getContext()).load(article.getImage_url()).into(binding.breakingNewsImage);
                 Glide.with(itemView.getContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                        Toast.makeText(itemView.getContext(), "Oops. There's a problem with your network!", Toast.LENGTH_SHORT).show();
                         binding.breakingNewsImageLoading.setVisibility(View.GONE);
                         return false;
                     }

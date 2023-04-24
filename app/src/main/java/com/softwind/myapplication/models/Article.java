@@ -46,6 +46,7 @@ public class Article implements Parcelable {
         this.content = article.getContent();
         this.pubDate = article.getPubDate();
         this.image_url = article.getImage_url();
+        this.category[0] = article.getCategory();
     }
 
     public Article(Parcel in) {

@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.Target;
 import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.databinding.ItemBookmarkNewsBinding;
 import com.softwind.myapplication.models.SavedArticles;
+import com.softwind.myapplication.util.Content;
 
 import java.util.List;
 
@@ -66,20 +67,10 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             binding.articleTime.setText(article.getPubDate());
 
             if (article.getImage_url() != null) {
-                Glide.with(itemView.getContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
-
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        binding.lavBookmark.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        binding.lavBookmark.setVisibility(View.GONE);
-                        return false;
-                    }
-                }).into(binding.articleImage);
+                Content.placeImage(binding.getRoot().getContext(), article, binding.articleImage, binding.lavBookmark);
+            } else {
+                Content.setFailedResource(article);
+                Content.placeImage(binding.getRoot().getContext(), article, binding.articleImage, binding.lavBookmark);
             }
 
             binding.btnRemoveArticle.setOnClickListener(v -> {
