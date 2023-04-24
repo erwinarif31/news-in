@@ -1,17 +1,14 @@
 package com.softwind.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.softwind.myapplication.R;
 import com.softwind.myapplication.adapter.BookmarkAdapter;
 import com.softwind.myapplication.databinding.ActivityBookmarkBinding;
-import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.SavedArticles;
 
 public class BookmarkActivity extends AppCompatActivity {

@@ -1,21 +1,14 @@
 package com.softwind.myapplication.adapter;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.softwind.myapplication.databinding.ItemBreakingNewsBinding;
 import com.softwind.myapplication.models.SavedArticles;
+import com.softwind.myapplication.util.Content;
 
 import java.util.List;
 
@@ -59,23 +52,12 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         public void onBind(SavedArticles article) {
             binding.tvBreakingNewsTitle.setText(article.getTitle());
             binding.tvPubDate.setText(article.getDateDiff());
+
             if (article.getImage_url() != null) {
-//                Glide.with(itemView.getContext()).load(article.getImage_url()).into(binding.breakingNewsImage);
-                Glide.with(itemView.getContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                        Toast.makeText(itemView.getContext(), "Oops. There's a problem with your network!", Toast.LENGTH_SHORT).show();
-                        binding.breakingNewsImageLoading.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        binding.breakingNewsImageLoading.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                }).into(binding.breakingNewsImage);
+                Content.placeImage(binding.getRoot().getContext(), article, binding.breakingNewsImage, binding.breakingNewsImageLoading);
+            } else {
+                Content.setFailedResource(article);
+                Content.placeImage(binding.getRoot().getContext(), article, binding.breakingNewsImage, binding.breakingNewsImageLoading);
             }
 
             binding.getRoot().setOnClickListener(view -> clickListener.onArticleClicked(article));

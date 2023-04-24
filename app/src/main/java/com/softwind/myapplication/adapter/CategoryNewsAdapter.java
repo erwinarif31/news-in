@@ -1,21 +1,14 @@
 package com.softwind.myapplication.adapter;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.softwind.myapplication.databinding.ItemDiscoverNewsBinding;
 import com.softwind.myapplication.models.SavedArticles;
+import com.softwind.myapplication.util.Content;
 
 import java.util.List;
 
@@ -59,20 +52,10 @@ public class CategoryNewsAdapter extends RecyclerView.Adapter<CategoryNewsAdapte
             binding.articleTitle.setText(article.getTitle());
             binding.articleTime.setText(article.getPubDate());
             if (article.getImage_url() != null) {
-                Glide.with(itemView.getContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        binding.breakingNewsImageLoading.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        binding.breakingNewsImageLoading.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                }).into(binding.ivArticleImage);
+                Content.placeImage(binding.getRoot().getContext(), article, binding.ivArticleImage, binding.breakingNewsImageLoading);
+            } else {
+                Content.setFailedResource(article);
+                Content.placeImage(binding.getRoot().getContext(), article, binding.ivArticleImage, binding.breakingNewsImageLoading);
             }
 
             binding.getRoot().setOnClickListener(v -> clickListener.onClick(article));

@@ -3,31 +3,24 @@ package com.softwind.myapplication.activity;
 import static com.softwind.myapplication.activity.MainActivity.sDatabase;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityArticleBinding;
 import com.softwind.myapplication.models.SavedArticles;
+import com.softwind.myapplication.util.Content;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class ArticleActivity extends AppCompatActivity {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -120,7 +113,29 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         if (article.getContent() != null) {
-            binding.articleContent.setText(article.getContent());
+            int start = 0, end = 0, chunk = 10;
+            List<String> sentences = new ArrayList<>();
+            String rawContent = article.getContent();
+            StringBuilder content = new StringBuilder();
+            BreakIterator bi = BreakIterator.getSentenceInstance(Locale.ENGLISH);
+            bi.setText(rawContent);
+
+            while ((end = bi.next()) != BreakIterator.DONE) {
+                sentences.add(rawContent.substring(start, end));
+                start = end;
+            }
+
+            for (int i=0; i<sentences.size(); i+=chunk) {
+                content.append(Arrays.toString(Arrays.copyOfRange(sentences.toArray(), i, Math.min(sentences.size(), i + chunk)))
+                                .replace("[", "")
+                                .replace("]", "")
+                                .replace(". ,", ".")
+                                .replace("[\"\\s,]", "\"")
+                                .replace("['\\s,]", "\"")
+                        ).append("\n\n");
+            }
+
+            binding.articleContent.setText(content.toString());
             binding.toSourceButton.setVisibility(View.GONE);
 
         } else {
@@ -134,20 +149,10 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         if (article.getImage_url() != null) {
-            Glide.with(getApplicationContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    binding.lavLoading.setVisibility(View.GONE);
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    binding.lavLoading.setVisibility(View.GONE);
-                    return false;
-                }
-
-            }).into(binding.articleImage);
+            Content.placeImage(this, article, binding.articleImage, binding.lavLoading);
+        } else {
+            Content.setFailedResource(article);
+            Content.placeImage(this, article, binding.articleImage, binding.lavLoading);
         }
     }
 }
