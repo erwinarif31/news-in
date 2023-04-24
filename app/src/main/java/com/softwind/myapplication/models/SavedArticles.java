@@ -142,6 +142,19 @@ public class SavedArticles implements Parcelable {
         return dateDiff;
     }
 
+    public long getMilis() {
+        String dateDiff;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date;
+        try {
+            date = dateFormat.parse(this.getPubDate());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return date.getTime();
+    }
+
     public String getSource_id() {
         return source_id;
     }

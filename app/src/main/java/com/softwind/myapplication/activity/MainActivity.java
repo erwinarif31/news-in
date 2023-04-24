@@ -7,6 +7,7 @@ import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.Observable;
 import androidx.databinding.ObservableInt;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,11 +25,17 @@ import com.softwind.myapplication.fragment.DiscoverFragment;
 import com.softwind.myapplication.fragment.HomeFragment;
 import com.softwind.myapplication.fragment.ProfileFragment;
 import com.softwind.myapplication.models.Category;
+import com.softwind.myapplication.models.SavedArticles;
 import com.softwind.myapplication.models.User;
 import com.softwind.myapplication.util.ArticleDb;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,9 +76,33 @@ public class MainActivity extends AppCompatActivity {
         setNavbarListener();
         fetchBreakingArticles();
         fetchArticles();
+        updateArticleDatabase();
 
-//        ArticleDb.fetchAndStoreArticles(categoryMap.get("breaking"), "breaking");
 
+    }
+
+    private static void updateArticleDatabase() {
+        mCategoryCount.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (mCategoryCount.get() == categoryMap.size()) {
+                    for (String categoryName : categoryMap.keySet()) {
+                        sDatabase.child(categoryName).child("lastFetched").get().addOnSuccessListener(snapshot -> {
+                            long lastFetched = snapshot.getValue(Long.class);
+                            long diff = (System.currentTimeMillis() - lastFetched) / 3600000;
+                            System.out.println(diff);
+                            if (diff >= 1 && categoryName.equals("breaking")) {
+                                ArticleDb.fetchAndStoreArticles(categoryMap.get(categoryName), categoryName);
+                            }
+
+                            if (diff >= 3) {
+                                ArticleDb.fetchAndStoreArticles(categoryMap.get(categoryName), categoryName);
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
 
     private void getUserData(FirebaseUser loggedUser) {
@@ -102,8 +133,11 @@ public class MainActivity extends AppCompatActivity {
         Set<String> keys = categoryMap.keySet();
         for (String categoryName : keys) {
             if (categoryName.equals("breaking")) continue;
+//            ArticleDb.fetchAndStoreArticles(categoryMap.get(categoryName), categoryName);
             ArticleDb.getArticles(categoryName, (articles, lastFetched) -> {
                 if (articles == null) return;
+                articles.sort(Comparator.comparingLong(SavedArticles::getMilis));
+                Collections.reverse(articles);
                 categoryMap.get(categoryName).setArticles(articles);
                 categoryMap.get(categoryName).setLastFetched(lastFetched);
                 categoryMap.get(categoryName).getIsDone().set(true);
