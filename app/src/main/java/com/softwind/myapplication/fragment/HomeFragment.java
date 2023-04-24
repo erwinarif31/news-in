@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
             Content.placeImage(getContext(), article, home.topHeadlineImage, home.topHeadlineImageLoading);
 
         } else {
-//            Content.setFailedResource(article);
+            Content.setFailedResource(article);
             Content.placeImage(getContext(), article, home.topHeadlineImage, home.topHeadlineImageLoading);
 
         }
