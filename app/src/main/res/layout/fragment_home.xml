@@ -135,7 +135,6 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/for_you_auth"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
@@ -153,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="14sp"
-                    android:layout_margin="8dp"
+                    android:layout_margin="12dp"
                     android:text="@string/home_raw_catch_up"
                     android:gravity="center_horizontal"/>
 
@@ -162,8 +161,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/raw_log_in"
-                    android:background="@color/green_emerald"/>
+                    app:cornerRadius="12dp"
+                    android:text="@string/raw_log_in"/>
 
             </LinearLayout>
 
