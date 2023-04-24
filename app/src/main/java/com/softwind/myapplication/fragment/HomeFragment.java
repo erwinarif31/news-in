@@ -28,8 +28,8 @@ import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.adapter.CategoryNewsAdapter;
 import com.softwind.myapplication.adapter.HomeFragmentAdapter;
 import com.softwind.myapplication.databinding.FragmentHomeBinding;
-import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.Category;
+import com.softwind.myapplication.models.SavedArticles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +49,6 @@ public class HomeFragment extends Fragment {
         home = FragmentHomeBinding.bind(view);
         setContent(home.getRoot());
         mCategoryCount.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 setContent(view);
@@ -60,15 +59,15 @@ public class HomeFragment extends Fragment {
     private void setContent(@NonNull View view) {
         Category breaking = categoryMap.get("breaking");
         assert breaking != null;
-        if (breaking.getIsDone().get()) {
-            List<Article> articles = breaking.getArticles();
+        if (breaking.getIsDone().get() && breaking.getArticles().size() > 0) {
+            List<SavedArticles> articles = breaking.getArticles();
             setHeadline(articles.get(0));
 
             setRvBreakingNews(view, home.rvBreakingNews, articles);
         }
 
         if (user != null && isFetchPreferenceDone() && mCategoryCount.get() >= user.getPreferences().size()) {
-            List<Article> forYouArticles = new ArrayList<>();
+            List<SavedArticles> forYouArticles = new ArrayList<>();
             for (String preference : user.getPreferences()) {
                 Category category = categoryMap.get(preference);
                 assert category != null;
@@ -80,14 +79,14 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void setRvForYou(View view, RecyclerView rvForYou, List<Article> forYouArticles) {
+    private void setRvForYou(View view, RecyclerView rvForYou, List<SavedArticles> forYouArticles) {
         rvForYou.setLayoutManager(new LinearLayoutManager(view.getContext()));
         CategoryNewsAdapter adapter = new CategoryNewsAdapter(forYouArticles);
         adapter.setClickListener(this::goToArticle);
         rvForYou.setAdapter(adapter);
     }
 
-    private void setRvBreakingNews(@NonNull View view, RecyclerView rv, List<Article> articles) {
+    private void setRvBreakingNews(@NonNull View view, RecyclerView rv, List<SavedArticles> articles) {
         rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         HomeFragmentAdapter adapter = new HomeFragmentAdapter(articles);
         adapter.setClickListener(this::goToArticle);
@@ -111,7 +110,7 @@ public class HomeFragment extends Fragment {
         return home.getRoot();
     }
 
-    private void setHeadline(Article article) {
+    private void setHeadline(SavedArticles article) {
         home.tvTopHeadline.setText(article.getTitle());
         home.rlHeadline.setOnClickListener(v -> goToArticle(article));
 
@@ -160,7 +159,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void goToArticle(Article article) {
+    private void goToArticle(SavedArticles article) {
         Intent intent = new Intent(getContext(), ArticleActivity.class);
         intent.putExtra(MainActivity.EXTRA_ARTICLE, article);
         startActivity(intent);

@@ -25,9 +25,8 @@ import com.softwind.myapplication.fragment.HomeFragment;
 import com.softwind.myapplication.fragment.ProfileFragment;
 import com.softwind.myapplication.models.Category;
 import com.softwind.myapplication.models.User;
-import com.softwind.myapplication.util.ApiClient;
+import com.softwind.myapplication.util.ArticleDb;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setNavbarListener();
         fetchBreakingArticles();
         fetchArticles();
+
     }
 
     private void getUserData(FirebaseUser loggedUser) {
@@ -88,38 +88,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchBreakingArticles() {
-        Category category = categoryMap.get("breaking");
-        ApiClient.getLatestNews(category, articles -> {
-            assert category != null;
-            category.setArticles(Arrays.asList(articles));
+        ArticleDb.getArticles("breaking", (articles, lastFetched) -> {
+            categoryMap.get("breaking").setArticles(articles);
+            categoryMap.get("breaking").setLastFetched(lastFetched);
+            categoryMap.get("breaking").getIsDone().set(true);
+            mCategoryCount.set(mCategoryCount.get() + 1);
         });
     }
 
     private void fetchArticles() {
         Set<String> keys = categoryMap.keySet();
         for (String categoryName : keys) {
-            Category category = categoryMap.get(categoryName);
-
-            ApiClient.getNewsWithCategory(categoryName, category, articles -> {
-                assert category != null;
-                category.setArticles(Arrays.asList(articles));
+            if (categoryName.equals("breaking")) continue;
+            ArticleDb.getArticles(categoryName, (articles, lastFetched) -> {
+                if (articles == null) return;
+                categoryMap.get(categoryName).setArticles(articles);
+                categoryMap.get(categoryName).setLastFetched(lastFetched);
+                categoryMap.get(categoryName).getIsDone().set(true);
+                mCategoryCount.set(mCategoryCount.get() + 1);
             });
         }
     }
 
     public static void setCategoryMap(Map<String, Category> categoryMap) {
-        categoryMap.put("breaking", new Category(Collections.emptyList()));
-        categoryMap.put("health", new Category(Collections.emptyList()));
-        categoryMap.put("sports", new Category(Collections.emptyList()));
-        categoryMap.put("business", new Category(Collections.emptyList()));
-        categoryMap.put("science", new Category(Collections.emptyList()));
-        categoryMap.put("technology", new Category(Collections.emptyList()));
-        categoryMap.put("entertainment", new Category(Collections.emptyList()));
-        categoryMap.put("environment", new Category(Collections.emptyList()));
-        categoryMap.put("food", new Category(Collections.emptyList()));
-        categoryMap.put("politics", new Category(Collections.emptyList()));
-        categoryMap.put("tourism", new Category(Collections.emptyList()));
-        categoryMap.put("world", new Category(Collections.emptyList()));
+        categoryMap.put("breaking", new Category(Collections.emptyList(), 0));
+        categoryMap.put("health", new Category(Collections.emptyList(), 0));
+        categoryMap.put("sports", new Category(Collections.emptyList(), 0));
+        categoryMap.put("business", new Category(Collections.emptyList(), 0));
+        categoryMap.put("science", new Category(Collections.emptyList(), 0));
+        categoryMap.put("technology", new Category(Collections.emptyList(), 0));
+        categoryMap.put("entertainment", new Category(Collections.emptyList(), 0));
+        categoryMap.put("environment", new Category(Collections.emptyList(), 0));
+        categoryMap.put("food", new Category(Collections.emptyList(), 0));
+        categoryMap.put("politics", new Category(Collections.emptyList(), 0));
+        categoryMap.put("tourism", new Category(Collections.emptyList(), 0));
+        categoryMap.put("world", new Category(Collections.emptyList(), 0));
     }
 
 

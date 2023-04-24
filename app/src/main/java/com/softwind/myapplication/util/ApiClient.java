@@ -1,11 +1,7 @@
 package com.softwind.myapplication.util;
 
-import static com.softwind.myapplication.activity.MainActivity.mCategoryCount;
-
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableBoolean;
 
-import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.Category;
 
@@ -16,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static String API_KEY = "pub_1990645367a3662adea63947f2107b17da764";
+    public static String API_KEY = "pub_208719a38deaf501013ca72630db229e3c8ae";
 
     public static ApiInterface getService() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -49,7 +45,6 @@ public class ApiClient {
                     Article[] articles = newsResponse.getArticles();
                     callback.onSuccess(articles);
                     category.getIsDone().set(true);
-                    mCategoryCount.set(mCategoryCount.get() + 1);
                 }
             }
 

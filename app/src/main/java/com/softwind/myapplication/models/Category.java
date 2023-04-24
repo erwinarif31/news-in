@@ -5,18 +5,32 @@ import androidx.databinding.ObservableBoolean;
 import java.util.List;
 
 public class Category {
-    private List<Article> articles;
+    private List<SavedArticles> articles;
     private final ObservableBoolean isDone = new ObservableBoolean(false);
 
-    public Category(List<Article> articles) {
-        this.articles = articles;
+    public long getLastFetched() {
+        return lastFetched;
     }
 
-    public List<Article> getArticles() {
+    public void setLastFetched(long lastFetched) {
+        this.lastFetched = lastFetched;
+    }
+
+    private long lastFetched;
+
+    public Category() {
+    }
+
+    public Category(List<SavedArticles> articles, long lastFetched) {
+        this.articles = articles;
+        this.lastFetched = lastFetched;
+    }
+
+    public List<SavedArticles> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<Article> articles) {
+    public void setArticles(List<SavedArticles> articles) {
         this.articles = articles;
     }
 

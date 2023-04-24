@@ -15,15 +15,15 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.softwind.myapplication.databinding.ItemDiscoverNewsBinding;
-import com.softwind.myapplication.models.Article;
+import com.softwind.myapplication.models.SavedArticles;
 
 import java.util.List;
 
 public class CategoryNewsAdapter extends RecyclerView.Adapter<CategoryNewsAdapter.ViewHolder> {
-    private List<Article> articleList;
+    private List<SavedArticles> articleList;
     public ClickListener clickListener;
 
-    public CategoryNewsAdapter(List<Article> articleList) {
+    public CategoryNewsAdapter(List<SavedArticles> articleList) {
         this.articleList = articleList;
     }
 
@@ -55,9 +55,9 @@ public class CategoryNewsAdapter extends RecyclerView.Adapter<CategoryNewsAdapte
             this.binding = view;
         }
 
-        public void onBind(Article article) {
+        public void onBind(SavedArticles article) {
             binding.articleTitle.setText(article.getTitle());
-            binding.articleTime.setText(article.getDateDiff());
+            binding.articleTime.setText(article.getPubDate());
             if (article.getImage_url() != null) {
 //                Glide.with(itemView.getContext()).load(article.getImage_url()).into(binding.breakingNewsImage);
                 Glide.with(itemView.getContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
@@ -82,6 +82,6 @@ public class CategoryNewsAdapter extends RecyclerView.Adapter<CategoryNewsAdapte
     }
 
     public interface ClickListener {
-        void onClick(Article article);
+        void onClick(SavedArticles article);
     }
 }

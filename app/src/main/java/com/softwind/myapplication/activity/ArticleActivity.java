@@ -17,7 +17,6 @@ import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityArticleBinding;
-import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.SavedArticles;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class ArticleActivity extends AppCompatActivity {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private ActivityArticleBinding binding;
     private List<SavedArticles> save;
-    private Article article;
+    private SavedArticles article;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +35,21 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         article = getIntent().getParcelableExtra(MainActivity.EXTRA_ARTICLE);
-        if (MainActivity.user.getSavedArticles() != null) {
+        if (mAuth.getCurrentUser() != null && MainActivity.user.getSavedArticles() != null) {
             save = new ArrayList<>(MainActivity.user.getSavedArticles());
         } else {
             save = new ArrayList<>();
         }
         setContent(article);
 
-        binding.backButton.setOnClickListener(v -> {
-            finish();
-        });
+        binding.backButton.setOnClickListener(v -> finish());
 
         binding.bookmarkButton.setOnClickListener(v -> {
+            if (mAuth.getCurrentUser() == null) {
+                startActivity(new Intent(this, LoginActivity.class));
+                return;
+            }
+
             if (!isArticleSaved()) {
                 save.add(new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url()));
                 MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save);
@@ -76,7 +78,7 @@ public class ArticleActivity extends AppCompatActivity {
         return false;
     }
 
-    private void setContent(Article article) {
+    private void setContent(SavedArticles article) {
         binding.articleTitle.setText(article.getTitle());
         binding.articleContent.setText((article.getContent() == null) ? "Have a better view on this article by going to the source." : article.getContent());
         binding.articleTime.setText(article.getDateDiff());

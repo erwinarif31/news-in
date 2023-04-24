@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,15 +15,15 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.softwind.myapplication.databinding.ItemBreakingNewsBinding;
-import com.softwind.myapplication.models.Article;
+import com.softwind.myapplication.models.SavedArticles;
 
 import java.util.List;
 
 public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder> {
 
-    private List<Article> breakingNewsList;
+    private List<SavedArticles> breakingNewsList;
     public ClickListener clickListener;
-    public HomeFragmentAdapter(List<Article> breakingNewsList) {
+    public HomeFragmentAdapter(List<SavedArticles> breakingNewsList) {
         this.breakingNewsList = breakingNewsList;
     }
 
@@ -57,7 +56,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
             this.binding = itemView;
         }
 
-        public void onBind(Article article) {
+        public void onBind(SavedArticles article) {
             binding.tvBreakingNewsTitle.setText(article.getTitle());
             binding.tvPubDate.setText(article.getDateDiff());
             if (article.getImage_url() != null) {
@@ -84,7 +83,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     }
 
     public interface ClickListener {
-        void onArticleClicked (Article article);
+        void onArticleClicked (SavedArticles article);
     }
 }
 
