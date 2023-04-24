@@ -34,4 +34,6 @@
     <string name="discover_tab_politics">Politics</string>
     <string name="discover_tab_tourism">Tourism</string>
     <string name="discover_tab_world">World</string>
+    <string name="home_raw_catch_up">Let\'s catch up your own preferred news!</string>
+    <string name="raw_log_in">Log in</string>
 </resources>

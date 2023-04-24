@@ -96,7 +96,7 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         });
 
-        binding.btnUserSettings.setOnClickListener(v -> Toast.makeText(getContext(), "Hello user!", Toast.LENGTH_SHORT).show());
+        binding.btnUserSettings.setOnClickListener(v -> Toast.makeText(getContext(), "Coming Soon.", Toast.LENGTH_SHORT).show());
     }
 
 }
