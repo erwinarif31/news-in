@@ -20,7 +20,7 @@ public class ArticleDb {
             MainActivity.sDatabase.child("breaking").removeValue();
             ApiClient.getLatestNews(category, articles -> {
                 for (Article article : articles) {
-                    SavedArticles savedArticle = new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url());
+                    SavedArticles savedArticle = new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url(), article.getCategory()[0]);
                     save("breaking", savedArticle);
                 }
                 MainActivity.sDatabase.child("breaking").child("lastFetched").setValue(System.currentTimeMillis());
@@ -28,7 +28,7 @@ public class ArticleDb {
         } else {
             ApiClient.getNewsWithCategory(categoryName, category, articles -> {
                 for (Article article : articles) {
-                    SavedArticles savedArticle = new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url());
+                    SavedArticles savedArticle = new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url(), article.getCategory()[0]);
                     save(categoryName, savedArticle);
                 }
                 MainActivity.sDatabase.child(categoryName).child("lastFetched").setValue(System.currentTimeMillis());
@@ -51,6 +51,7 @@ public class ArticleDb {
                 }
                 for (DataSnapshot child : snapshot.child("articles").getChildren()) {
                     SavedArticles savedArticle = child.getValue(SavedArticles.class);
+                    savedArticle.setSource_id(child.getKey());
                     savedArticlesList.add(savedArticle);
                 }
                 callback.onArticlesFetched(savedArticlesList, lastFetched);

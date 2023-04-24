@@ -15,15 +15,20 @@ public class SavedArticles implements Parcelable {
     private String content;
     private String pubDate;
     private String image_url;
+    private String category;
 
-    public SavedArticles(){/* Constructor */};
+    private String source_id;
 
-    public SavedArticles(String title, String link, String content, String pubDate, String image_url) {
+    public SavedArticles() {/* Constructor */}
+
+    public SavedArticles(String title, String link, String content, String pubDate, String image_url, String category) {
         this.title = title;
         this.link = link;
         this.content = content;
         this.pubDate = pubDate;
         this.image_url = image_url;
+        this.category = category;
+        this.source_id = null;
     }
 
     protected SavedArticles(Parcel in) {
@@ -32,6 +37,8 @@ public class SavedArticles implements Parcelable {
         content = in.readString();
         pubDate = in.readString();
         image_url = in.readString();
+        category = in.readString();
+        source_id = in.readString();
     }
 
     public static final Creator<SavedArticles> CREATOR = new Creator<SavedArticles>() {
@@ -86,6 +93,10 @@ public class SavedArticles implements Parcelable {
         this.image_url = image_url;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -98,6 +109,8 @@ public class SavedArticles implements Parcelable {
         parcel.writeString(content);
         parcel.writeString(pubDate);
         parcel.writeString(image_url);
+        parcel.writeString(category);
+        parcel.writeString(source_id);
     }
 
     public String getDateDiff() {
@@ -128,4 +141,13 @@ public class SavedArticles implements Parcelable {
 
         return dateDiff;
     }
+
+    public String getSource_id() {
+        return source_id;
+    }
+
+    public void setSource_id(String source_id) {
+        this.source_id = source_id;
+    }
+
 }
