@@ -12,7 +12,6 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.SavedArticles;
 
 public class Content {
@@ -27,44 +26,50 @@ public class Content {
     public static final String ENVIRONMENT = "https://i.ibb.co/k6BBBLb/environment.jpg";
     public static final String ENTERTAINMENT = "https://i.ibb.co/98gmSCW/entertainment.jpg";
     public static final String BUSINESS = "https://i.ibb.co/thMzH1n/business.jpg";
+    public static final String TOP[] = {"https://i.ibb.co/hgCyHWW/top.jpg", "https://i.ibb.co/LvjSV8w/top2.jpg", "https://i.ibb.co/yhMNyFw/top3.jpg"};
 
-//    public static void setFailedResource(SavedArticles savedArticles) {
-//        switch (article.getCategory()[0].toLowerCase()) {
-//            case "business":
-//                article.setImage_url(Content.BUSINESS);
-//                break;
-//            case "sports":
-//                article.setImage_url(Content.SPORTS);
-//                break;
-//            case "entertainment":
-//                article.setImage_url(Content.ENTERTAINMENT);
-//                break;
-//            case "health":
-//                article.setImage_url(Content.HEALTH);
-//                break;
-//            case "science":
-//                article.setImage_url(Content.SCIENCE);
-//                break;
-//            case "technology":
-//                article.setImage_url(Content.TECHNOLOGY);
-//                break;
-//            case "world":
-//                article.setImage_url(Content.WORLD);
-//                break;
-//            case "politics":
-//                article.setImage_url(Content.POLITICS);
-//                break;
-//            case "tourism":
-//                article.setImage_url(Content.TOURISM);
-//                break;
-//            case "food":
-//                article.setImage_url(Content.FOOD);
-//                break;
-//            case "environment":
-//                article.setImage_url(Content.ENVIRONMENT);
-//                break;
-//        }
-//    }
+    public static void setFailedResource(SavedArticles article) {
+        System.out.println("Category: " + article.getCategory().toLowerCase());
+        switch (article.getCategory().toLowerCase()) {
+            case "business":
+                article.setImage_url(Content.BUSINESS);
+                break;
+            case "sports":
+                article.setImage_url(Content.SPORTS);
+                break;
+            case "entertainment":
+                article.setImage_url(Content.ENTERTAINMENT);
+                break;
+            case "health":
+                article.setImage_url(Content.HEALTH);
+                break;
+            case "science":
+                article.setImage_url(Content.SCIENCE);
+                break;
+            case "technology":
+                article.setImage_url(Content.TECHNOLOGY);
+                break;
+            case "world":
+                article.setImage_url(Content.WORLD);
+                break;
+            case "politics":
+                article.setImage_url(Content.POLITICS);
+                break;
+            case "tourism":
+                article.setImage_url(Content.TOURISM);
+                break;
+            case "food":
+                article.setImage_url(Content.FOOD);
+                break;
+            case "environment":
+                article.setImage_url(Content.ENVIRONMENT);
+                break;
+            default:
+                int random = (int) (Math.random() * 3);
+                article.setImage_url(Content.TOP[random]);
+                break;
+        }
+    }
 
     public static void placeImage(Context context, SavedArticles article, ImageView placeholder, ImageView lavLoading) {
         Glide.with(context).load(article.getImage_url()).listener(new RequestListener<Drawable>() {

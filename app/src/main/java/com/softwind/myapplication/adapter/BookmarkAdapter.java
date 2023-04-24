@@ -1,20 +1,11 @@
 package com.softwind.myapplication.adapter;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.softwind.myapplication.activity.MainActivity;
 import com.softwind.myapplication.databinding.ItemBookmarkNewsBinding;
 import com.softwind.myapplication.models.SavedArticles;
 import com.softwind.myapplication.util.Content;
@@ -69,7 +60,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             if (article.getImage_url() != null) {
                 Content.placeImage(binding.getRoot().getContext(), article, binding.articleImage, binding.lavBookmark);
             } else {
-//                Content.setFailedResource(article);
+                Content.setFailedResource(article);
                 Content.placeImage(binding.getRoot().getContext(), article, binding.articleImage, binding.lavBookmark);
             }
 

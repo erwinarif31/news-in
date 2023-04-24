@@ -2,6 +2,7 @@ package com.softwind.myapplication.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,6 @@ public class DiscoverFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_discover, container, false);
     }
 
@@ -67,6 +67,16 @@ public class DiscoverFragment extends Fragment {
 
             }
         });
+
+        binding.refreshButton.setOnClickListener(v -> {
+            binding.refreshAnimation.setVisibility(View.VISIBLE);
+            binding.refreshButton.setVisibility(View.GONE);
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                binding.refreshButton.setVisibility(View.VISIBLE);
+                binding.refreshAnimation.setVisibility(View.GONE);
+            }, 2000);
+        });
     }
 
     private void setRecyclerView(String categoryName) {
@@ -75,7 +85,6 @@ public class DiscoverFragment extends Fragment {
         CategoryNewsAdapter adapter = new CategoryNewsAdapter(category.getArticles());
         adapter.setClickListener(this::goToArticle);
         binding.rvDiscoverNews.setAdapter(adapter);
-        binding.refreshAnimation.setVisibility(View.GONE);
     }
 
     private void goToArticle(SavedArticles article) {

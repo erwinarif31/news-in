@@ -44,8 +44,11 @@
                 android:id="@+id/refresh_animation"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_toStartOf="@id/refresh_button"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="-4dp"
+                android:visibility="gone"
+                android:layout_toStartOf="@id/refresh_button"
                 app:lottie_rawRes="@raw/loading_animation"
                 app:lottie_loop="true"
                 app:lottie_autoPlay="true"/>
