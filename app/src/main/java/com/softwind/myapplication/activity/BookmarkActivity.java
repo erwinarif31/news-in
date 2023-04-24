@@ -46,8 +46,7 @@ public class BookmarkActivity extends AppCompatActivity {
     }
     private void goToArticle(SavedArticles article) {
         Intent intent = new Intent(this, ArticleActivity.class);
-        Article toArticle = new Article(article);
-        intent.putExtra(MainActivity.EXTRA_ARTICLE, toArticle);
+        intent.putExtra(MainActivity.EXTRA_ARTICLE, article);
         startActivity(intent);
     }
 

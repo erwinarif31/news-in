@@ -1,5 +1,7 @@
 package com.softwind.myapplication.activity;
 
+import static com.softwind.myapplication.activity.MainActivity.sDatabase;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,9 +19,11 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityArticleBinding;
-import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.SavedArticles;
 
 import java.util.ArrayList;
@@ -29,6 +34,7 @@ public class ArticleActivity extends AppCompatActivity {
     private ActivityArticleBinding binding;
     private List<SavedArticles> save;
     private SavedArticles article;
+    private boolean isSaved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +59,11 @@ public class ArticleActivity extends AppCompatActivity {
             }
 
             if (!isArticleSaved()) {
-                Article bookmark = new Article(article);
-                save.add(new SavedArticles(bookmark.getTitle(), bookmark.getLink(), bookmark.getContent(), bookmark.getPubDate(), bookmark.getImage_url(), bookmark.getCategory()[0]));
-                MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save);
-                binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
-                binding.lavBookmark.playAnimation();
+                save.add(article);
+                sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save).addOnSuccessListener(aVoid -> {
+                    binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
+                    binding.lavBookmark.playAnimation();
+                });
             } else {
                 for (SavedArticles savedArticle : save) {
                     if (savedArticle.getTitle().equals(article.getTitle())) {
@@ -65,8 +71,9 @@ public class ArticleActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save);
-                binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_border_24);
+                sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save).addOnSuccessListener(aVoid -> {
+                    binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_border_24);
+                });
             }
         });
 
@@ -100,7 +107,7 @@ public class ArticleActivity extends AppCompatActivity {
             if (savedArticle.getTitle().equals(article.getTitle())) {
                 return true;
             }
-        }
+        };
         return false;
     }
 

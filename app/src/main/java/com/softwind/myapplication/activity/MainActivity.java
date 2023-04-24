@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         fetchBreakingArticles();
         fetchArticles();
 
-        ArticleDb.fetchAndStoreArticles(categoryMap.get("breaking"), "breaking");
+//        ArticleDb.fetchAndStoreArticles(categoryMap.get("breaking"), "breaking");
 
     }
 

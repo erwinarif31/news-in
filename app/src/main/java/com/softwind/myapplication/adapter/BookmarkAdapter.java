@@ -69,7 +69,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             if (article.getImage_url() != null) {
                 Content.placeImage(binding.getRoot().getContext(), article, binding.articleImage, binding.lavBookmark);
             } else {
-                Content.setFailedResource(article);
+//                Content.setFailedResource(article);
                 Content.placeImage(binding.getRoot().getContext(), article, binding.articleImage, binding.lavBookmark);
             }
 

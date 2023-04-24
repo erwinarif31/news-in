@@ -51,6 +51,7 @@ public class ArticleDb {
                 }
                 for (DataSnapshot child : snapshot.child("articles").getChildren()) {
                     SavedArticles savedArticle = child.getValue(SavedArticles.class);
+                    savedArticle.setSource_id(child.getKey());
                     savedArticlesList.add(savedArticle);
                 }
                 callback.onArticlesFetched(savedArticlesList, lastFetched);

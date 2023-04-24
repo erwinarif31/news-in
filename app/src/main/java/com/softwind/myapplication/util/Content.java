@@ -28,44 +28,43 @@ public class Content {
     public static final String ENTERTAINMENT = "https://i.ibb.co/98gmSCW/entertainment.jpg";
     public static final String BUSINESS = "https://i.ibb.co/thMzH1n/business.jpg";
 
-    public static void setFailedResource(SavedArticles savedArticles) {
-        Article article = new Article(savedArticles);
-        switch (article.getCategory()[0].toLowerCase()) {
-            case "business":
-                article.setImage_url(Content.BUSINESS);
-                break;
-            case "sports":
-                article.setImage_url(Content.SPORTS);
-                break;
-            case "entertainment":
-                article.setImage_url(Content.ENTERTAINMENT);
-                break;
-            case "health":
-                article.setImage_url(Content.HEALTH);
-                break;
-            case "science":
-                article.setImage_url(Content.SCIENCE);
-                break;
-            case "technology":
-                article.setImage_url(Content.TECHNOLOGY);
-                break;
-            case "world":
-                article.setImage_url(Content.WORLD);
-                break;
-            case "politics":
-                article.setImage_url(Content.POLITICS);
-                break;
-            case "tourism":
-                article.setImage_url(Content.TOURISM);
-                break;
-            case "food":
-                article.setImage_url(Content.FOOD);
-                break;
-            case "environment":
-                article.setImage_url(Content.ENVIRONMENT);
-                break;
-        }
-    }
+//    public static void setFailedResource(SavedArticles savedArticles) {
+//        switch (article.getCategory()[0].toLowerCase()) {
+//            case "business":
+//                article.setImage_url(Content.BUSINESS);
+//                break;
+//            case "sports":
+//                article.setImage_url(Content.SPORTS);
+//                break;
+//            case "entertainment":
+//                article.setImage_url(Content.ENTERTAINMENT);
+//                break;
+//            case "health":
+//                article.setImage_url(Content.HEALTH);
+//                break;
+//            case "science":
+//                article.setImage_url(Content.SCIENCE);
+//                break;
+//            case "technology":
+//                article.setImage_url(Content.TECHNOLOGY);
+//                break;
+//            case "world":
+//                article.setImage_url(Content.WORLD);
+//                break;
+//            case "politics":
+//                article.setImage_url(Content.POLITICS);
+//                break;
+//            case "tourism":
+//                article.setImage_url(Content.TOURISM);
+//                break;
+//            case "food":
+//                article.setImage_url(Content.FOOD);
+//                break;
+//            case "environment":
+//                article.setImage_url(Content.ENVIRONMENT);
+//                break;
+//        }
+//    }
 
     public static void placeImage(Context context, SavedArticles article, ImageView placeholder, ImageView lavLoading) {
         Glide.with(context).load(article.getImage_url()).listener(new RequestListener<Drawable>() {

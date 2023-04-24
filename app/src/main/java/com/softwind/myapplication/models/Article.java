@@ -40,15 +40,6 @@ public class Article implements Parcelable {
         this.language = language;
     }
 
-    public Article(SavedArticles article) {
-        this.title = article.getTitle();
-        this.link = article.getLink();
-        this.content = article.getContent();
-        this.pubDate = article.getPubDate();
-        this.image_url = article.getImage_url();
-        this.category[0] = article.getCategory();
-    }
-
     public Article(Parcel in) {
         title = in.readString();
         link = in.readString();
