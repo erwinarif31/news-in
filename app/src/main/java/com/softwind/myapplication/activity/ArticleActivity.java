@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.PopupMenu;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.softwind.myapplication.R;
 import com.softwind.myapplication.databinding.ActivityArticleBinding;
+import com.softwind.myapplication.models.Article;
 import com.softwind.myapplication.models.SavedArticles;
 
 import java.util.ArrayList;
@@ -51,7 +53,8 @@ public class ArticleActivity extends AppCompatActivity {
             }
 
             if (!isArticleSaved()) {
-                save.add(new SavedArticles(article.getTitle(), article.getLink(), article.getContent(), article.getPubDate(), article.getImage_url()));
+                Article bookmark = new Article(article);
+                save.add(new SavedArticles(bookmark.getTitle(), bookmark.getLink(), bookmark.getContent(), bookmark.getPubDate(), bookmark.getImage_url(), bookmark.getCategory()[0]));
                 MainActivity.sDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("savedArticles").setValue(save);
                 binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
                 binding.lavBookmark.playAnimation();
@@ -67,6 +70,29 @@ public class ArticleActivity extends AppCompatActivity {
             }
         });
 
+        binding.moreButton.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(this, v);
+            popupMenu.getMenuInflater().inflate(R.menu.popup_more, popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(x -> {
+                switch (x.getItemId()) {
+                    case R.id.action_share:
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("text/plain");
+                        share.putExtra(Intent.EXTRA_TEXT, article.getLink());
+                        startActivity(Intent.createChooser(share, "Share this article"));
+                        break;
+                    case R.id.action_open_in_browser:
+                        Intent browser = new Intent(Intent.ACTION_VIEW);
+                        browser.setData(Uri.parse(article.getLink()));
+                        startActivity(browser);
+                        break;
+                }
+                return true;
+            });
+            popupMenu.show();
+        });
+
     }
 
     private boolean isArticleSaved() {
@@ -80,16 +106,26 @@ public class ArticleActivity extends AppCompatActivity {
 
     private void setContent(SavedArticles article) {
         binding.articleTitle.setText(article.getTitle());
-        binding.articleContent.setText((article.getContent() == null) ? "Have a better view on this article by going to the source." : article.getContent());
+
         binding.articleTime.setText(article.getDateDiff());
         if (isArticleSaved()) {
             binding.bookmarkButton.setImageResource(R.drawable.round_bookmark_24);
         }
-        binding.toSourceButton.setOnClickListener(v -> {
-            Intent source = new Intent(Intent.ACTION_VIEW);
-            source.setData(Uri.parse(article.getLink()));
-            startActivity(source);
-        });
+
+        if (article.getContent() != null) {
+            binding.articleContent.setText(article.getContent());
+            binding.toSourceButton.setVisibility(View.GONE);
+
+        } else {
+            binding.articleContent.setText("Have a better experience by opening this article in browser. Click the button below to open this article in browser.");
+            binding.toSourceButton.setVisibility(View.VISIBLE);
+            binding.toSourceButton.setOnClickListener(v -> {
+                Intent source = new Intent(Intent.ACTION_VIEW);
+                source.setData(Uri.parse(article.getLink()));
+                startActivity(source);
+            });
+        }
+
         if (article.getImage_url() != null) {
             Glide.with(getApplicationContext()).load(article.getImage_url()).listener(new RequestListener<Drawable>() {
                 @Override

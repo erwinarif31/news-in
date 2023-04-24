@@ -46,7 +46,7 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:padding="12dp"
-                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@id/more_button"
                 android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
                 android:background="@android:color/transparent"
@@ -58,9 +58,20 @@
                 android:layout_height="256dp"
                 android:layout_marginEnd="-108dp"
                 android:layout_marginTop="-108dp"
-                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@id/more_button"
                 android:layout_alignParentTop="true"
                 app:lottie_rawRes="@raw/explosion"
+                android:scaleType="centerCrop"/>
+
+            <ImageButton
+                android:id="@+id/more_button"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="12dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/round_more_vert_24"
+                android:background="@android:color/transparent"
                 android:scaleType="centerCrop"/>
 
         </RelativeLayout>
@@ -104,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
             android:textSize="16sp"
             android:textColor="@color/night"
             android:lineSpacingExtra="8sp"
@@ -115,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:layout_gravity="end"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="12dp"
             android:text="Source"
             app:cornerRadius="16dp"/>

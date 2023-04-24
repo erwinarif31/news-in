@@ -15,8 +15,9 @@ public class SavedArticles implements Parcelable {
     private String content;
     private String pubDate;
     private String image_url;
+    private String category;
 
-    public SavedArticles(){/* Constructor */};
+    public SavedArticles() {/* Constructor */}
 
     public SavedArticles(String title, String link, String content, String pubDate, String image_url) {
         this.title = title;
@@ -26,12 +27,22 @@ public class SavedArticles implements Parcelable {
         this.image_url = image_url;
     }
 
+    public SavedArticles(String title, String link, String content, String pubDate, String image_url, String category) {
+        this.title = title;
+        this.link = link;
+        this.content = content;
+        this.pubDate = pubDate;
+        this.image_url = image_url;
+        this.category = category;
+    }
+
     protected SavedArticles(Parcel in) {
         title = in.readString();
         link = in.readString();
         content = in.readString();
         pubDate = in.readString();
         image_url = in.readString();
+        category = in.readString();
     }
 
     public static final Creator<SavedArticles> CREATOR = new Creator<SavedArticles>() {
@@ -86,6 +97,10 @@ public class SavedArticles implements Parcelable {
         this.image_url = image_url;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -98,6 +113,7 @@ public class SavedArticles implements Parcelable {
         parcel.writeString(content);
         parcel.writeString(pubDate);
         parcel.writeString(image_url);
+        parcel.writeString(category);
     }
 
     public String getDateDiff() {
