@@ -2,6 +2,7 @@ package com.softwind.myapplication.util;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -37,7 +38,26 @@ public class ArticleDb {
     }
 
     private static void save(String category, SavedArticles savedArticle) {
-        MainActivity.sDatabase.child(category).child("articles").push().setValue(savedArticle).addOnSuccessListener(aVoid -> System.out.println("Saved article: " + savedArticle.getTitle()));
+        if (category.equals("breaking")) {
+            MainActivity.sDatabase.child(category).child("articles").push().setValue(savedArticle);
+        } else {
+            MainActivity.sDatabase.child(category).child("articles").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                @Override
+                public void onSuccess(DataSnapshot dataSnapshot) {
+                    boolean isDuplicate = false;
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        SavedArticles savedArticles = child.getValue(SavedArticles.class);
+                        if (savedArticles != null && savedArticles.getTitle().equals(savedArticle.getTitle())) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                    if (!isDuplicate) {
+                        MainActivity.sDatabase.child(category).child("articles").push().setValue(savedArticle);
+                    }
+                }
+            });
+        }
     }
 
     public static void getArticles(String categoryName, OnArticlesFetched callback) {
